@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: RSMR
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springboot_db
+    username: spring45
+    password: spring45
+    driver-className: org.postgresql.Driver
+server:
+  port: 4567
+  error:
+    include-message: always
+    include-binding-errors: always
+jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true

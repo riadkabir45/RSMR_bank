@@ -3,26 +3,27 @@ RSMR Bank. A bnaking system designed by four individuals for secure and easy ban
 
 ## Requirements
 - User Authentication
-	- Account Creation
-	- Account Modification
+	- Account Type
+	- Unique Account ID Generation
 	- User Dashboard
 	- Admin Page
 - Cash Flow
-	-  Deposit Withdraw
-	- Verification Auto Image Processing
-	- Auto DPS/FDP
-	- Auto Loan System
-- Easy Banking
-	- Card Number System
+	- Unique Transaction ID
+	- Deposit Withdraw
+	- Monethly Statement
+	- Between Account Transaction
+- Security
+	- NID Verification
+	- Account Concurrency
 	- Customer Support
-	- Monthly Statement Mail Support
 	- Report System for Fraud or Faults
-- Elevated Support
-	- Multi Language Support
-	- Theme Customization
-	- 
+- Adcance Banking
+	- Multiple Debit/Credit Card
+	- Auto DPS/FDR Management
+	- Investment Offer
+	- Auot Loan
 - Make Abroad Study Easy
 	- Student Verification
-	- Student Loan
-	- Easy FDR
+	- Dollar Convertion
+	- Education Waver
 	- Special Privileges
