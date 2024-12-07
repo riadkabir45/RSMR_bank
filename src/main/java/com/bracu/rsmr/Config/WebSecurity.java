@@ -13,6 +13,9 @@ public class WebSecurity {
     @Bean
     public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception{
         http
+        .csrf(csrfmgr -> {
+            csrfmgr.disable();
+        })
         .authorizeHttpRequests((authz) -> 
         {
             authz.anyRequest().permitAll();
