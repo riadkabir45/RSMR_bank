@@ -25,4 +25,11 @@ public class UserController {
         userService.testMethod(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/check")
+    public ResponseEntity<?> checkUser(@RequestBody User user){
+        if(!userService.checkUser(user))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
