@@ -1,5 +1,7 @@
 package com.bracu.rsmr.User;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,8 +14,8 @@ public class UserRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userService.createUser(new User("Rifat","pixel"));
-        userService.createUser(new User("Sishir","Xpress"));
+        userService.createUser(new User("Rifat","pixel",Arrays.asList("Moderator")));
+        userService.createUser(new User("Sishir","Xpress",Arrays.asList("Moderator")));
         userService.createUser(new User("Nabi","Crypto"));
         userService.createUser(new User("Aritra","Dhuk"));
         userService.createUser(new User("Jahan","Misti"));

@@ -1,9 +1,17 @@
 package com.bracu.rsmr.User;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.bracu.rsmr.Account.Account;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +28,31 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private List<String> roles;
     
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Account account;
+    
+    public User(String username, String password, List<String> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.roles = Arrays.asList("Customer");
+    }
+
+    @PostConstruct
+    private void attachAccount(){
+        if(this.getRoles().contains("Customer")){
+            Account account = new Account();
+            account.setBalance(1000D);
+            account.setDisabled(false);
+            account.setUser(this);
+            account.setNId((long) ((Math.random() * 100) + 1));
+        }
     }
 }
