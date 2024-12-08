@@ -12,7 +12,13 @@ public class UserRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userService.testMethod(new User("Rifat","pixel"));
-        userService.testMethod(new User("Sishir","Xpress"));
+        userService.createUser(new User("Rifat","pixel"));
+        userService.createUser(new User("Sishir","Xpress"));
+        userService.createUser(new User("Nabi","Crypto"));
+        userService.createUser(new User("Aritra","Dhuk"));
+        userService.createUser(new User("Jahan","Misti"));
+        userService.createUser(new User("Sajid","Flex"));
+        userService.createUser(new User("Jenith","Gym"));
+        userService.createUser(new User("Aowfi","MyNigga"));
     }
 }

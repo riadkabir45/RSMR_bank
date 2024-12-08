@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody User user){
-        userService.testMethod(user);
+        userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

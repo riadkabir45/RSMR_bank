@@ -14,7 +14,7 @@ public class UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public void testMethod(User user){
+    public void createUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);    
     }
