@@ -1,9 +1,140 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Random Number</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - BankX</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Random Number: <span th:text="${randomNumber}">0</span></h1>
+    <!-- Navbar with Dropdown -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">BankX</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup.html">Sign Up</a>
+                    </li>
+                    <!-- Dashboard Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dashboard
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Account Balance</a></li>
+                            <li><a class="dropdown-item" href="#">Recent Transactions</a></li>
+                            <li><a class="dropdown-item" href="#">Loan Details</a></li>
+                            <li><a class="dropdown-item" href="#">My Wallet</a></li>
+                            <li><a class="dropdown-item" href="#">Notifications</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Accpunt Card -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Account Details</h5>
+                        <p class="card-text" th:text="${username}">Default User</p>
+                        <p class="card-text">$5,230.50</p>
+                        <button class="btn btn-primary">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Transactions</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Paid Utility Bill - $120</li>
+                            <li class="list-group-item">Received Payment - $500</li>
+                            <li class="list-group-item">Online Shopping - $89.50</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Card -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Loan Details</h5>
+                        <p class="card-text">Remaining Loan: $2,000</p>
+                        <button class="btn btn-warning">View Loan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Notifications -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Notifications</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">You have a new message from customer support</li>
+                            <li class="list-group-item">Account verification completed</li>
+                            <li class="list-group-item">Your loan application has been approved</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Quick Links</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="#">Transfer Funds</a></li>
+                            <li class="list-group-item"><a href="#">Request Loan</a></li>
+                            <li class="list-group-item"><a href="#">Account Settings</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Support</h5>
+                        <p class="card-text">Need assistance? Contact support for help.</p>
+                        <button class="btn btn-danger">Contact Support</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
+
