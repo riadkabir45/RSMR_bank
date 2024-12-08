@@ -37,7 +37,7 @@ public class WebSecurity {
         }
         ).formLogin(logmgr -> {
             logmgr.permitAll();
-
+            logmgr.defaultSuccessUrl("/");
         });
 
         return http.build();
