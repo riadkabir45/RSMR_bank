@@ -21,7 +21,7 @@ public class Transaction {
     private String dstId;
     private Double amount;
 
-    public Transaction(String srcId, String dstId, Double balance) {
+    public Transaction(String srcId, String dstId, Double amount) {
         this.srcId = srcId;
         this.dstId = dstId;
         this.amount = amount;
