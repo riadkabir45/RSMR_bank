@@ -18,6 +18,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String accountId;
     private Double balance;
     private boolean disabled;
     private Long nId;
@@ -31,4 +32,5 @@ public class Account {
         this.disabled = disabled;
         this.nId = nId;
     }
+
 }

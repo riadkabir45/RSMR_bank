@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bracu.rsmr.Account.Account;
-import com.bracu.rsmr.Account.AccountRepository;
+import com.bracu.rsmr.Account.AccountService;
 
 @Service
 public class UserService {
@@ -16,7 +16,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -27,7 +27,7 @@ public class UserService {
               Account account = new Account(1000D,false, (long)((Math.random() * 100) + 1));
               account.setUser(user);
               user.setAccount(account);
-              accountRepository.save(account);
+              accountService.createAccount(account);
         }
     }
 
