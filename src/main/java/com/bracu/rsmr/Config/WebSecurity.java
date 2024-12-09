@@ -26,6 +26,9 @@ public class WebSecurity {
     @Bean
     public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception{
         http
+        .httpBasic(httpmgr -> {
+            httpmgr.init(http);
+        })
         .userDetailsService(userLogService)
         .csrf(csrfmgr -> {
             csrfmgr.disable();

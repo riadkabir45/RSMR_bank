@@ -41,15 +41,16 @@ public class RsmrApplication implements CommandLineRunner {
         userService.createUser(new User("Jenith","Gym"));
         userService.createUser(new User("Aowfi","MyNigga"));
 
-        // //String rifat = userRepository.findByUsername("Rifat").get().getAccount().getAccountId();
-		// String aowfi = userRepository.findByUsername("Aowfi").get().getAccount().getAccountId();
-		// String jahan = userRepository.findByUsername("Jahan").get().getAccount().getAccountId();
-		// String nabi = userRepository.findByUsername("Nabi").get().getAccount().getAccountId();
-		// String aritra = userRepository.findByUsername("Aritra").get().getAccount().getAccountId();
+        //String rifat = userRepository.findByUsername("Rifat").get().getAccount().getAccountId();
+		String aowfi = userRepository.findByUsername("Aowfi").get().getAccount().getAccountId();
+		String jahan = userRepository.findByUsername("Jahan").get().getAccount().getAccountId();
+		String nabi = userRepository.findByUsername("Nabi").get().getAccount().getAccountId();
+		String aritra = userRepository.findByUsername("Aritra").get().getAccount().getAccountId();
 
-        // //accountService.transferAmount(rifat, aowfi, 500D);
-        // accountService.transferAmount(aowfi, jahan, 300D);
-        // accountService.transferAmount(nabi, aritra, 900D);
+        //accountService.transferAmount(rifat, aowfi, 500D);
+        accountService.transferAmount(aowfi, jahan, 300D);
+        accountService.transferAmount(nabi, aritra, 900D);
+        System.err.println(userRepository.findAll());
 	}
 
 }

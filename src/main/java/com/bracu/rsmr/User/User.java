@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.bracu.rsmr.Account.Account;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,14 +44,4 @@ public class User {
         this.roles = Arrays.asList("Customer");
     }
 
-    @PostConstruct
-    private void attachAccount(){
-        if(this.getRoles().contains("Customer")){
-            Account account = new Account();
-            account.setBalance(1000D);
-            account.setDisabled(false);
-            account.setUser(this);
-            account.setNId((long) ((Math.random() * 100) + 1));
-        }
-    }
 }
