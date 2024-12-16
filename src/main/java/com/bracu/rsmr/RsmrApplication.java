@@ -32,25 +32,23 @@ public class RsmrApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userService.createUser(new User("Rifat","pixel",Arrays.asList("Moderator")));
-        userService.createUser(new User("Sishir","Xpress",Arrays.asList("Moderator")));
-        userService.createUser(new User("Nabi","Crypto"));
-        userService.createUser(new User("Aritra","Dhuk"));
-        userService.createUser(new User("Jahan","Misti"));
-        userService.createUser(new User("Sajid","Flex"));
-        userService.createUser(new User("Jenith","Gym"));
-        userService.createUser(new User("Aowfi","MyNigga"));
+		User rifat = userService.createUser(new User("Rifat","pixel",Arrays.asList("Moderator")));
+        User Sishir = userService.createUser(new User("Sishir","Xpress",Arrays.asList("Moderator")));
+        User nabi = userService.createUser(new User("Nabi","Crypto"));
+        User aritra = userService.createUser(new User("Aritra","Dhuk"));
+        User jahan = userService.createUser(new User("Jahan","Misti"));
+        User sajid = userService.createUser(new User("Sajid","Flex"));
+        User jenith = userService.createUser(new User("Jenith","Gym"));
+        User aowfi = userService.createUser(new User("Aowfi","MyNigga"));
 
-        //String rifat = userRepository.findByUsername("Rifat").get().getAccount().getAccountId();
-		String aowfi = userRepository.findByUsername("Aowfi").get().getAccount().getAccountId();
-		String jahan = userRepository.findByUsername("Jahan").get().getAccount().getAccountId();
-		String nabi = userRepository.findByUsername("Nabi").get().getAccount().getAccountId();
-		String aritra = userRepository.findByUsername("Aritra").get().getAccount().getAccountId();
-
+        
+        // Add PartMod
+        //userService.addRole(aowfi, "PartMod");
+        
+        
         //accountService.transferAmount(rifat, aowfi, 500D);
-        accountService.transferAmount(aowfi, jahan, 300D);
-        accountService.transferAmount(nabi, aritra, 900D);
-        System.err.println(userRepository.findAll());
+        accountService.transferAmount(aowfi.getAccount().getAccountId(), jahan.getAccount().getAccountId(), 300D);
+        accountService.transferAmount(nabi.getAccount().getAccountId(), aritra.getAccount().getAccountId(), 900D);
 	}
 
 }

@@ -1,8 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"><!DOCTYPE html>
-<head th:replace="~{base :: head}" ></head>
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RSMR Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
-    <nav th:replace="~{base :: nav}" ></nav>
+    <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">RSMR Bank</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Support</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <!-- User Details and Account Overview -->
     <div class="container mt-5">
@@ -10,13 +43,11 @@
             <!-- User Info -->
             <div class="col-md-4">
                 <div class="card">
-                    <div th:object="${user}" class="card-body text-center">
-                        <h4 class="card-title" th:text="*{username}"></h4>
+                    <div class="card-body text-center">
+                        <h4 class="card-title">John Doe</h4>
                         <p class="card-text">Account Holder</p>
-                        <p class="card-text"><strong>Account No</strong><br/>
-                            <span th:text="*{account.accountId}"></span> </p>
-                            <p class="card-text"><strong>Balance</strong><br/>
-                                <span th:text="*{account.balance}"></span> </p>
+                        <p class="card-text"><strong>Account No:</strong> 1234567890</p>
+                        <p class="card-text"><strong>Branch:</strong> Downtown Branch</p>
                     </div>
                 </div>
             </div>
@@ -24,7 +55,7 @@
             <!-- Account Balances -->
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-success text-white">
                         <h5>Account Balances</h5>
                     </div>
                     <div class="card-body">
@@ -55,7 +86,7 @@
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-dark text-white">
                         <h5>Credit Cards</h5>
                     </div>
                     <div class="card-body">
@@ -70,7 +101,7 @@
 
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-danger text-white">
                         <h5>Loans</h5>
                     </div>
                     <div class="card-body">
@@ -88,7 +119,7 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-secondary text-white">
                         <h5>Mini Statement</h5>
                     </div>
                     <div class="card-body">
@@ -106,7 +137,7 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-primary text-dark">
+                    <div class="card-header bg-warning text-dark">
                         <h5>Weekly Discount Offers</h5>
                     </div>
                     <div class="card-body">
@@ -121,7 +152,13 @@
         </div>
     </div>
 
-    <footer th:replace="~{base :: footer}" ></footer>
-
+    <footer th:fragment="footer" class="bg-dark text-white mt-5">
+        <div class="container text-center py-3">
+            <p>&copy; 2024 RSMR Bank. All rights reserved.</p>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Custom JS -->
+        <script src="script.js"></script>
+    </footer>
 </body>
 </html>

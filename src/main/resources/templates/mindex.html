@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!DOCTYPE html>
+<head th:replace="~{base :: head}" ></head>
+<body>
+    <nav th:replace="~{base :: nav}" ></nav>
+
+        
+    <!-- Main Content -->
+    <div class="main-content p-4 w-100">
+        <div class="container">
+            <div class="row">
+                <!-- Reports Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Report Notifications</h5>
+                            <p class="card-text">You have <strong>5 new reports</strong> waiting for your review.</p>
+                            <a href="#" class="btn btn-light">View Reports</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Verification Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">User Verification Pending</h5>
+                            <p class="card-text">There are <strong>3 users</strong> waiting for verification.</p>
+                            <a href="#" class="btn btn-light">Verify Users</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Admin Stats Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">System Stats</h5>
+                            <p class="card-text">Total users: <strong>200</strong></p>
+                            <p class="card-text">Active sessions: <strong>15</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <!-- Table of Pending Actions -->
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Pending Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Action</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Approve User 123</td>
+                                        <td><button class="btn btn-danger btn-sm">Pending</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Resolve Report 101</td>
+                                        <td><button class="btn btn-warning btn-sm">In Progress</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Update System Settings</td>
+                                        <td><button class="btn btn-success btn-sm">Completed</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <footer th:replace="~{base :: footer}" ></footer>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.bracu.rsmr.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public void createUser(User user){
+    public User createUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         if(user.getRoles().contains("Customer")){
@@ -29,6 +30,25 @@ public class UserService {
               user.setAccount(account);
               accountService.createAccount(account);
         }
+        return user;
+    }
+
+    public boolean  addRole(User user,String role){
+        List<String> roles = user.getRoles();
+        if(roles.contains(role))
+            return false;
+        user.getRoles().add(role);
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean  removeRole(User user,String role){
+        List<String> roles = user.getRoles();
+        if(!roles.contains(role))
+            return false;
+        user.getRoles().remove(role);
+        userRepository.save(user);
+        return true;
     }
 
     public boolean checkUser(User user){
