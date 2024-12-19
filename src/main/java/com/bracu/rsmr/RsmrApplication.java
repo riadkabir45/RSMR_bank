@@ -7,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.bracu.rsmr.Account.Account;
 import com.bracu.rsmr.Account.AccountService;
 import com.bracu.rsmr.User.User;
 import com.bracu.rsmr.User.UserRepository;
