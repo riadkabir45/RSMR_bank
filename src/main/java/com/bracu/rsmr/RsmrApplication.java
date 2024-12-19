@@ -43,7 +43,7 @@ public class RsmrApplication implements CommandLineRunner {
 
         
         // Add PartMod
-        //userService.addRole(aowfi, "PartMod");
+        userService.addRole(aowfi, "PartMod");
         
         
         //accountService.transferAmount(rifat, aowfi, 500D);
