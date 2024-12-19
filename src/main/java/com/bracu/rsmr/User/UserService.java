@@ -37,7 +37,7 @@ public class UserService {
         List<String> roles = user.getRoles();
         if(roles.contains(role))
             return false;
-        user.getRoles().add(role);
+        roles.add(role);
         userRepository.save(user);
         return true;
     }
@@ -46,7 +46,7 @@ public class UserService {
         List<String> roles = user.getRoles();
         if(!roles.contains(role))
             return false;
-        user.getRoles().remove(role);
+        roles.remove(role);
         userRepository.save(user);
         return true;
     }

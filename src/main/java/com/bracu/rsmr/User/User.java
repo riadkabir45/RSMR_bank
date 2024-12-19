@@ -1,5 +1,6 @@
 package com.bracu.rsmr.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,13 +36,14 @@ public class User {
     public User(String username, String password, List<String> roles) {
         this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.roles = new ArrayList<>(roles);
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.roles = Arrays.asList("Customer");
+        this.roles = new ArrayList<>(Arrays.asList("Customer"));
     }
+    
 
 }
