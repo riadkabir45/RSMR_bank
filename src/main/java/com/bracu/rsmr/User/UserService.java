@@ -58,4 +58,13 @@ public class UserService {
         return false;
     }
 
+    public void toggleMod(User user,String role){
+        List<String> roles = user.getRoles();
+        if(roles.contains(role))
+            roles.remove(role);
+        else
+            roles.add(role);
+        userRepository.save(user);
+    }
+
 }
