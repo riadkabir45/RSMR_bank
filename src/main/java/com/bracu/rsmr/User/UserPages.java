@@ -28,8 +28,12 @@ public class UserPages {
         else
             return "mindex";
     }
-    @GetMapping("/trans")
+    @GetMapping("/transfer")
     public String transfer(Model model) {
+        Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
+        String username = authenticated.getName();
+        User user = userRepository.findByUsername(username).get();
+        model.addAttribute("userAccount", user.getAccount().getAccountId());
         return "transfer";
     }
 
@@ -44,4 +48,5 @@ public class UserPages {
         model.addAttribute("users", filteredUsers);
         return "modPage";
     }
+
 }

@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!DOCTYPE html>
+<head th:replace="~{base :: head}" ></head>
 <body>
+    <nav th:replace="~{base :: nav}" ></nav>
 
-    <div th:replace="~{base :: header}"></div> 
+    <!-- User Details and Account Overview -->
 
-    <main>
-        <h1>Welcome to the Home Page</h1>
-        <p>This is the home page content.</p>
-    </main>
-
-    <div th:replace="~{base :: footer}"></div> 
+    <div class="container">
+        <h2 class="text-center">Transaction Form</h2>
+        <form action="/api/account/transfer" method="post" enctype="application/json">
+            <div class="mb-3">
+                <label for="senderId" class="form-label">Sender's ID:</label>
+                <input th:value="${userAccount}" type="text" class="form-control" id="srcId" name="srcId" required>
+            </div>
+            <div class="mb-3">
+                <label for="receiverId" class="form-label">Receiver Bank ID:</label>
+                <input type="text" class="form-control" id="receiverId" name="dstId" required>
+            </div>
+            <div class="mb-3">
+                <label for="amount" class="form-label">Amount:</label>
+                <input type="number" class="form-control" id="amount" name="amount" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Transaction</button>
+        </form>
+    </div>
+    <footer th:replace="~{base :: footer}" ></footer>
 
 </body>
 </html>
