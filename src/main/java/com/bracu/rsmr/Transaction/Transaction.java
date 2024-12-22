@@ -1,5 +1,7 @@
 package com.bracu.rsmr.Transaction;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Transaction {
     private String srcId;
     private String dstId;
     private Double amount;
+    private LocalDateTime date = LocalDateTime.now();
 
     public Transaction(String srcId, String dstId, Double amount) {
         this.srcId = srcId;
