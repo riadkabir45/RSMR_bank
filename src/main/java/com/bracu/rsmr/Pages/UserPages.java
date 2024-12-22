@@ -1,4 +1,4 @@
-package com.bracu.rsmr.User;
+package com.bracu.rsmr.Pages;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,12 +9,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.bracu.rsmr.Transaction.TransactionRepository;
+import com.bracu.rsmr.User.User;
+import com.bracu.rsmr.User.UserRepository;
 
 @Controller
 public class UserPages {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
     
     @GetMapping("/")
     public String index(Model model) {
@@ -47,6 +56,17 @@ public class UserPages {
         System.out.println(userRepository.findByUsername("Aowfi").get().getRoles());
         model.addAttribute("users", filteredUsers);
         return "modPage";
+    }
+    
+    @GetMapping("/backtransfer")
+    public String reverseTransfer(Model model) {
+        return "transback";
+    }
+    
+    @PostMapping("/backtransfer")
+    public String reverseTransferPost(Model model,@RequestParam("transactionId") String id) {
+        model.addAttribute("transaction",transactionRepository.findByTransId(id).get());
+        return "transback";
     }
 
 }

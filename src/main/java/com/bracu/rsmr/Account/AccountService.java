@@ -46,6 +46,25 @@ public class AccountService {
         accountRepository.saveAll(Arrays.asList(fromAccount, toAccount));
     }
 
+    public void backTransferAmount(Long id) throws Exception{
+        Transaction transaction = transactionService.deleteTransfer(id);
+        Account fromAccount = accountRepository.findByAccountId(transaction.getDstId()).orElseThrow(() -> new AccountNotFoundException());
+        Account toAccount = accountRepository.findByAccountId(transaction.getSrcId()).orElseThrow(() -> new AccountNotFoundException());
+        Double amount = transaction.getAmount();
+    try{
+        if(fromAccount.getBalance() < amount)
+            throw new AccessException("Insufficient Balance");
+
+        fromAccount.setBalance(fromAccount.getBalance() - amount);
+        toAccount.setBalance(toAccount.getBalance() + amount);
+
+        accountRepository.saveAll(Arrays.asList(fromAccount, toAccount));
+    }catch(Exception e){
+        transactionService.createTransaction(transaction);
+    }
+        
+    }
+
     public void transferAmount(Transaction transaction) throws Exception{
         transferAmount(transaction.getSrcId(), transaction.getDstId(), transaction.getAmount());
     }

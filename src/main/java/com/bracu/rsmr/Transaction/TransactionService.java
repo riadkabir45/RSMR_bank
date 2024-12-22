@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bracu.rsmr.Account.AccountService;
+
 @Service
 public class TransactionService {
     @Autowired
@@ -14,5 +16,11 @@ public class TransactionService {
         transaction.setTransId(UUID.randomUUID().toString());
         transactionRepository.save(transaction);
         return true;
+    }
+
+    public Transaction deleteTransfer(Long id) throws Exception{
+        Transaction transaction = transactionRepository.findById(id).get();
+        transactionRepository.deleteById(id);
+        return transaction;
     }
 }
