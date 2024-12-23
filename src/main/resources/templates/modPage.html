@@ -32,8 +32,8 @@
                                             <td th:if="${user.roles.contains('PartMod')}"><span class="badge bg-warning">Temporary Admin</span></td>
                                             <td th:unless="${user.roles.contains('PartMod')}"><span class="badge bg-success">User</span></td>
                                             
-                                            <td th:if="${user.roles.contains('PartMod')}"><button class="btn btn-sm btn-danger" th:onclick="'javascript:sendRequest(\'' + @{/api/users/mod/{id}(id=${user.id})} + '\');'" th:text="'Remove Mod'"></button></td>
-                                            <td th:unless="${user.roles.contains('PartMod')}"><button th:onclick="'javascript:sendRequest(\'' + @{/api/users/mod/{id}(id=${user.id})} + '\');'" class="btn btn-sm btn-success">Make Admin</button></td>
+                                            <td th:if="${user.roles.contains('PartMod')}"><button class="btn btn-sm btn-danger" th:onclick="'javascript:sendRequest(\'' + @{/api/mod/users/mod/{id}(id=${user.id})} + '\');'" th:text="'Remove Mod'"></button></td>
+                                            <td th:unless="${user.roles.contains('PartMod')}"><button th:onclick="'javascript:sendRequest(\'' + @{/api/mod/users/mod/{id}(id=${user.id})} + '\');'" class="btn btn-sm btn-success">Make Admin</button></td>
                                         </tr>
                                     </tbody>
                                 </table>

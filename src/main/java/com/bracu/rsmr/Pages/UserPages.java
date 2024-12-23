@@ -3,25 +3,21 @@ package com.bracu.rsmr.Pages;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.bracu.rsmr.User.User;
-import com.bracu.rsmr.User.UserRepository;
+import com.bracu.rsmr.User.UserService;
 
 @Controller
 public class UserPages {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping("/")
     public String index(Model model) {
-        Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
-        String username = authenticated.getName();
-        User user = userRepository.findByUsername(username).get();
+        User user = userService.securityContext();
         model.addAttribute("user", user);
         List<String> roles = user.getRoles();
         if(roles.contains("Customer"))
@@ -32,10 +28,9 @@ public class UserPages {
 
     @GetMapping("/transfer")
     public String transfer(Model model) {
-        Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
-        String username = authenticated.getName();
-        User user = userRepository.findByUsername(username).get();
+        User user = userService.securityContext();
         model.addAttribute("userAccount", user.getAccount().getAccountId());
+        model.addAttribute("user", user);
         return "transfer";
     }
 
