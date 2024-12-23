@@ -3,6 +3,7 @@ package com.bracu.rsmr.Account;
 import java.net.URI;
 
 import javax.security.auth.login.AccountException;
+import javax.security.auth.login.AccountNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -41,14 +42,23 @@ public class AccountController {
         @RequestParam("amount") Double amount
             ) throws Exception{
         Transaction transaction = new Transaction(srcId,dstId,amount);
-        System.out.println(transaction);
-        Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
-        Account account = userRepository.findByUsername(authenticated.getName()).orElseThrow(() -> new AccountException("User not found")).getAccount();
-
-        transaction.setSrcId(account.getAccountId());;
-        accountService.transferAmount(transaction);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/transfer"));
+        try {
+            if(amount <= 0)
+                throw new IllegalArgumentException("Invalid Amount");
+            Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
+            Account account = userRepository.findByUsername(authenticated.getName()).orElseThrow(() -> new AccountException("User not found")).getAccount();
+
+            transaction.setSrcId(account.getAccountId());;
+            accountService.transferAmount(transaction);
+            headers.setLocation(URI.create("/transfer"));
+        } catch (IllegalArgumentException e) {
+            headers.setLocation(URI.create("/transfer?error="+e.getMessage().replace(" ", "%20")));
+        } catch (AccountNotFoundException e) {
+            headers.setLocation(URI.create("/transfer?error="+"Reciever Account not found".replace(" ", "%20")));
+        } catch (Exception e) {
+            headers.setLocation(URI.create("/transfer?error="+e.getClass().getSimpleName()));
+        }
         return new ResponseEntity<>("Transfer Successfull",headers,HttpStatus.FOUND);
     }
 

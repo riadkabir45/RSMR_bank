@@ -4,9 +4,11 @@
 <body>
     <nav th:replace="~{base :: nav}" ></nav>
 
+
     <!-- User Details and Account Overview -->
 
-    <div class="container">
+    <div class="container mt-3">
+        <div th:replace="~{base :: error}" ></div>
         <h2 class="text-center">Transaction Form</h2>
         <form action="/api/account/transfer" method="post" enctype="application/json">
             <div class="mb-3">

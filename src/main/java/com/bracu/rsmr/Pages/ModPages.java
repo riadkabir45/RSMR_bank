@@ -1,5 +1,7 @@
 package com.bracu.rsmr.Pages;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +36,14 @@ public class ModPages {
     public String reverseTransferPost(Model model,@RequestParam("transactionId") String id) {
         User user = userService.securityContext();
         model.addAttribute("user", user);
+        try {
+            
         model.addAttribute("transaction",transactionRepository.findByTransId(id).get());
+        } catch (NoSuchElementException e) {
+            model.addAttribute("error","Transaction Id not found!");
+        } catch (Exception e) {
+            model.addAttribute("error","A server error occured!");
+        }
         return "transback";
     }
 }
