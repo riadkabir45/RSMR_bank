@@ -7,6 +7,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bracu.rsmr.Transaction.Transaction;
 import com.bracu.rsmr.User.UserService;
 
 @RestController
@@ -32,13 +34,12 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/transfer")
-    public ResponseEntity<?> transferAmount(@RequestParam("dstId") String dstId,
-        @RequestParam("amount") Double amount
-            ) throws Exception{
+    @PostMapping(value = "/transfer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<?> transferAmount(Transaction transaction) throws Exception{
         HttpHeaders headers = new HttpHeaders();
         try {
-            accountService.transferAmount(userService.securityContext().getAccount().getAccountId(), dstId, amount);   
+            transaction.setSrcId(userService.securityContext().getAccount().getAccountId());
+            accountService.transferAmount(transaction);   
             headers.setLocation(URI.create("/transfer"));
         } catch (IllegalArgumentException e) {
             headers.setLocation(URI.create("/transfer?error="+e.getMessage().replace(" ", "%20")));
