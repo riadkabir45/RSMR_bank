@@ -1,7 +1,6 @@
 package com.bracu.rsmr.Pages;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,10 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.bracu.rsmr.Transaction.TransactionRepository;
 import com.bracu.rsmr.User.User;
 import com.bracu.rsmr.User.UserRepository;
 
@@ -22,9 +17,6 @@ public class UserPages {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
-    
     @GetMapping("/")
     public String index(Model model) {
         Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
@@ -37,6 +29,7 @@ public class UserPages {
         else
             return "mindex";
     }
+
     @GetMapping("/transfer")
     public String transfer(Model model) {
         Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
@@ -44,29 +37,6 @@ public class UserPages {
         User user = userRepository.findByUsername(username).get();
         model.addAttribute("userAccount", user.getAccount().getAccountId());
         return "transfer";
-    }
-
-    @GetMapping("/modpage")
-    public String modMg(Model model) {
-        List<User> allUsers = userRepository.findAll();
-
-        List<User> filteredUsers = allUsers.stream()
-                .filter(user -> !user.getRoles().contains("Moderator"))
-                .collect(Collectors.toList());
-        System.out.println(userRepository.findByUsername("Aowfi").get().getRoles());
-        model.addAttribute("users", filteredUsers);
-        return "modPage";
-    }
-    
-    @GetMapping("/backtransfer")
-    public String reverseTransfer(Model model) {
-        return "transback";
-    }
-    
-    @PostMapping("/backtransfer")
-    public String reverseTransferPost(Model model,@RequestParam("transactionId") String id) {
-        model.addAttribute("transaction",transactionRepository.findByTransId(id).get());
-        return "transback";
     }
 
 }
