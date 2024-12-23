@@ -16,7 +16,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div th:object="${user.getRoles()}" class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
@@ -26,9 +26,10 @@
                           Account
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" href="/admin/modpage">Modaretor Management</a>
+                          <a class="dropdown-item" th:if="*{contains('Moderator')}" href="/admin/modpage">Modaretor Management</a>
                           <a class="dropdown-item" href="#">Update Account</a>
                           <a class="dropdown-item" href="#">Change Password</a>
+                          <a class="dropdown-item" href="#">Change Password2</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -36,7 +37,7 @@
                           Transaction
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" href="/mod/backtransfer">Revert Transaction</a>
+                          <a class="dropdown-item" th:if="*{contains('PartMod')}" href="/mod/backtransfer">Revert Transaction</a>
                           <a class="dropdown-item" href="/transfer">Make Transaction</a>
                         </div>
                     </li>
