@@ -13,7 +13,7 @@
         <form action="/api/account/transfer" method="post" enctype="application/json">
             <div class="mb-3">
                 <label for="senderId" class="form-label">Sender's ID:</label>
-                <input th:value="${userAccount}" type="text" class="form-control" id="srcId" name="srcId" required>
+                <input th:value="${userAccount}" type="text" class="form-control" id="srcId" name="srcId" required disabled>
             </div>
             <div class="mb-3">
                 <label for="receiverId" class="form-label">Receiver Bank ID:</label>

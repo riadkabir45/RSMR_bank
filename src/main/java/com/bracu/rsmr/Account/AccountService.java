@@ -1,6 +1,5 @@
 package com.bracu.rsmr.Account;
 
-import java.rmi.AccessException;
 import java.util.Arrays;
 import java.util.UUID;
 

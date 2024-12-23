@@ -1,5 +1,7 @@
 package com.bracu.rsmr.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,9 @@ public class UserService {
 
     public User createUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if(user.getRoles() == null){
+            user.setRoles(new ArrayList<>(Arrays.asList("Customer")));
+        }
         userRepository.save(user);
         if(user.getRoles().contains("Customer")){
               Account account = new Account(1000D,false, (long)((Math.random() * 100) + 1));

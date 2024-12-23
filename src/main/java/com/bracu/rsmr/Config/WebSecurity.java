@@ -35,7 +35,7 @@ public class WebSecurity {
         })
         .authorizeHttpRequests((authz) -> 
         {
-            authz.requestMatchers("/login").permitAll();
+            authz.requestMatchers("/login","/signup","/api/users/signup").permitAll();
             authz.requestMatchers("/admin/**","/api/admin/**").hasRole("Moderator");
             authz.requestMatchers("/mod/**","/api/mod/**").hasRole("PartMod");
             authz.anyRequest().authenticated();
