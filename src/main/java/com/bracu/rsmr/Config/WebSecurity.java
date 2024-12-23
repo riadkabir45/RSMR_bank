@@ -36,11 +36,16 @@ public class WebSecurity {
         .authorizeHttpRequests((authz) -> 
         {
             authz.requestMatchers("/login").permitAll();
+            authz.requestMatchers("/admin/**","/api/admin/**").hasRole("Moderator");
+            authz.requestMatchers("/mod/**","/api/mod/**").hasRole("PartMod");
             authz.anyRequest().authenticated();
+
         }
         ).formLogin(logmgr -> {
             logmgr.permitAll();
             logmgr.defaultSuccessUrl("/");
+        }).exceptionHandling((exmgr) -> {
+            exmgr.accessDeniedPage("/");
         });
 
         return http.build();
