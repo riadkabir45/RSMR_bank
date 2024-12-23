@@ -1,6 +1,9 @@
 package com.bracu.rsmr.User;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +23,10 @@ public class UserModController {
     @GetMapping("/{id}")
     public ResponseEntity<?> toggleMod(@PathVariable("id") Long id){
         User user = userRepository.findById(id).get();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/admin/modpage"));
         userService.toggleMod(user, "PartMod");
-        return new ResponseEntity<>(HttpStatus.FOUND);
+        return new ResponseEntity<>(headers,HttpStatus.FOUND);
     }
 
 }
