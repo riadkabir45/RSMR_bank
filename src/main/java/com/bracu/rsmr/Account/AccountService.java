@@ -31,11 +31,16 @@ public class AccountService {
     }
 
     public void transferAmount(String fromAccountId, String toAccountId, double amount) throws Exception {
+        if(fromAccountId.equals(toAccountId))
+            throw new IllegalArgumentException("Invalid Account ID");
         Account fromAccount = accountRepository.findByAccountId(fromAccountId).orElseThrow(() -> new AccountNotFoundException());
         Account toAccount = accountRepository.findByAccountId(toAccountId).orElseThrow(() -> new AccountNotFoundException());
 
         if(fromAccount.getBalance() < amount)
-            throw new AccessException("Insufficient Balance");
+            throw new IllegalArgumentException("Insufficient Balance");
+        if(amount <= 0)
+            throw new IllegalArgumentException("Invalid Amount");
+        
 
         fromAccount.setBalance(fromAccount.getBalance() - amount);
         toAccount.setBalance(toAccount.getBalance() + amount);
@@ -51,19 +56,25 @@ public class AccountService {
         Account fromAccount = accountRepository.findByAccountId(transaction.getDstId()).orElseThrow(() -> new AccountNotFoundException());
         Account toAccount = accountRepository.findByAccountId(transaction.getSrcId()).orElseThrow(() -> new AccountNotFoundException());
         Double amount = transaction.getAmount();
-    try{
-        if(fromAccount.getBalance() < amount)
-            throw new AccessException("Insufficient Balance");
+        try{
+            if(fromAccount.getBalance() < amount)
+                throw new IllegalArgumentException("Insufficient Balance");
+            if(amount <= 0)
+                throw new IllegalArgumentException("Invalid Amount");
+            
 
-        fromAccount.setBalance(fromAccount.getBalance() - amount);
-        toAccount.setBalance(toAccount.getBalance() + amount);
+            fromAccount.setBalance(fromAccount.getBalance() - amount);
+            toAccount.setBalance(toAccount.getBalance() + amount);
 
-        accountRepository.saveAll(Arrays.asList(fromAccount, toAccount));
-    }catch(Exception e){
-        transactionService.createTransaction(transaction);
-    }
+            accountRepository.saveAll(Arrays.asList(fromAccount, toAccount));
+        } catch(IllegalArgumentException e) {
+            throw e;
+        } catch(Exception e){
+            transactionService.createTransaction(transaction);
+        }
         
     }
+    
 
     public void transferAmount(Transaction transaction) throws Exception{
         transferAmount(transaction.getSrcId(), transaction.getDstId(), transaction.getAmount());
