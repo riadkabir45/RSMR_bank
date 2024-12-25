@@ -49,6 +49,7 @@ public class RsmrApplication implements CommandLineRunner {
         //accountService.transferAmount(rifat, aowfi, 500D);
         accountService.transferAmount(aowfi.getAccount().getAccountId(), jahan.getAccount().getAccountId(), 300D);
         accountService.transferAmount(nabi.getAccount().getAccountId(), aritra.getAccount().getAccountId(), 900D);
+        // System.out.println(nabi.getAccount().get);
 	}
 
 }
