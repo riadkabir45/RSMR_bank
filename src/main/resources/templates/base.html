@@ -27,7 +27,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                           <a class="dropdown-item" th:if="*{contains('Moderator')}" href="/admin/modpage">Modaretor Management</a>
-                          <a class="dropdown-item" href="#">Update Account</a>
+                          <a class="dropdown-item" th:unless="*{contains('Moderator')}" href="#">Update Account</a>
                           <a class="dropdown-item" href="#">Change Password</a>
                         </div>
                     </li>
@@ -36,8 +36,8 @@
                           Transaction
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" th:if="*{contains('PartMod')}" href="/mod/backtransfer">Revert Transaction</a>
-                          <a class="dropdown-item" href="/transfer">Make Transaction</a>
+                          <a class="dropdown-item" th:if="*{contains('PartMod') or contains('Moderator')}" href="/mod/backtransfer">Revert Transaction</a>
+                          <a class="dropdown-item" th:unless="*{contains('Moderator')}" href="/transfer">Make Transaction</a>
                         </div>
                     </li>
                     <li class="nav-item">
