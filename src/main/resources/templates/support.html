@@ -29,20 +29,8 @@
                                         <div class="card-header">
                                             Chat Window
                                         </div>
-                                        <div class="card-body h-50 overflow-auto w-100">
-                                            <ul class="list-unstyled">
-                                                <li class="text-end">
-                                                    This is a sample message from the other user.</br>
-                                                    <small class="text-muted">10:00 AM</small></br></br>
-                                                </li>
-                                                <li class="text-start">
-                                                    This is a sample message from the other user.</br>
-                                                    <small class="text-muted">10:00 AM</small></br></br>
-                                                </li>
-                                                <li class="text-end">
-                                                    This is a sample message from the other user.</br>
-                                                    <small class="text-muted">10:00 AM</small></br></br>
-                                                </li>
+                                        <div class="card-body mh-50 overflow-auto w-100">
+                                            <ul class="list-unstyled" id="chat">
                                             </ul>
                                         </div>
                                     </div>
@@ -57,7 +45,7 @@
                                 </div>
                                 <form th:action="@{/chat/send}" method="post">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="message" rows="3" placeholder="Type your message here..."></textarea>
+                                        <textarea class="form-control" name="message" rows="3" placeholder="Type your message here..." required></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-4">Send</button>
                                 </form>
@@ -70,6 +58,56 @@
     </div>
 
     <footer th:replace="~{base :: footer}" ></footer>
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        var userid = /*[[${user.getId()}]]*/ null;
+        var chatid = /*[[${link.getId()}]]*/ null;
+        function updateChat(){
+            fetch('/api/chats/'+chatid) 
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const chatList = document.getElementById('chat'); 
+                while (chatList.firstChild) {
+                    chatList.removeChild(chatList.firstChild);
+                }
+                data.forEach(element => {
+
+                    const message = document.createElement('li');
+                    message.classList.add('ctext');
+
+                    if(userid == element['sender'])
+                        message.classList.add('text-end');
+                    else
+                    message.classList.add('text-start');
+
+                    const messageText = document.createElement('span');
+                    messageText.textContent = element['text'];
+                    message.appendChild(messageText);
+
+                    message.appendChild(document.createElement('br'));
+
+                    const timestamp = document.createElement('small');
+                    timestamp.classList.add('text-muted');
+                    timestamp.textContent = getNormalTime(element['date']);
+                    message.appendChild(timestamp);
+                    timestamp.appendChild(document.createElement('br'));
+
+                    chatList.appendChild(message);
+                });
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+        updateChat()
+        setInterval(() => {updateChat()} ,1000);
+    /*]]>*/
+    </script>
 
 </body>
 </html>

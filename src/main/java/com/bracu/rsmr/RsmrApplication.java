@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bracu.rsmr.Account.AccountService;
+import com.bracu.rsmr.Chat.ChatService;
 import com.bracu.rsmr.ChatLink.ChatLink;
 import com.bracu.rsmr.ChatLink.ChatLinkService;
 import com.bracu.rsmr.User.User;
@@ -28,7 +29,7 @@ public class RsmrApplication implements CommandLineRunner {
     private ChatLinkService chatLinkService;
 
     @Autowired
-    private UserRepository userRepository;
+    private ChatService chatService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RsmrApplication.class, args);
@@ -58,8 +59,21 @@ public class RsmrApplication implements CommandLineRunner {
         // Test ChatLink
         ChatLink lAowfi = chatLinkService.requestLink(aowfi);
         ChatLink lJahan = chatLinkService.requestLink(jahan);
+        ChatLink lSajid = chatLinkService.requestLink(sajid);
         // chatLinkService.setSupport(lJahan, rifat);
         // chatLinkService.setSupport(lAowfi, rifat);
+
+        // Test Chat
+        chatLinkService.setSupport(lJahan, aritra);
+        chatLinkService.setSupport(lSajid, aritra);
+
+        chatService.sendText(aritra.getId(), lJahan.getId(), "Hello sir, How can I help.");
+        chatService.sendText(jahan.getId(), lJahan.getId(), "Ai chat amake chat");
+        chatService.sendText(aritra.getId(), lJahan.getId(), "Sir this is very inappropriate");
+
+        chatService.sendText(aritra.getId(), lSajid.getId(), "Hello sir, How can I help.");
+
+        chatService.getChat(lJahan.getId());
 	}
 
 }

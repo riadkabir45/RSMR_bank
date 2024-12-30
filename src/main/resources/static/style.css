@@ -25,3 +25,15 @@ footer {
     background-color: #3C585A;
     /*background: linear-gradient(to right, red, yellow); */
 }
+
+.mh-50{
+    max-height: 50vh;
+}
+
+.ctext:hover > small {
+    display: inline; 
+}
+
+.ctext:not(:hover) > small {
+    display: none; 
+}
