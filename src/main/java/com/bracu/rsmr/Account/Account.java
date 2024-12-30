@@ -33,8 +33,17 @@ public class Account {
 
     public Account(Double balance, boolean disabled, Long nId) {
         this.balance = balance;
-        this.disabled = disabled;
+        this.disabled = true;
         this.nId = nId;
     }
+
+    public boolean getDisabled() {
+        return this.disabled;
+    }
+
+    public void setDisabled(boolean action) {
+        this.disabled = action;
+    }
+
 
 }
