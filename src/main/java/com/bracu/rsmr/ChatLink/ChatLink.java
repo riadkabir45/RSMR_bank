@@ -26,4 +26,5 @@ public class ChatLink {
         private User customer;
         @ManyToOne
         private User support;
+        private boolean isread = true;
 }

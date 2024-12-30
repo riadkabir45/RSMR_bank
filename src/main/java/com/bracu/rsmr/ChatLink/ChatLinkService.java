@@ -59,4 +59,11 @@ public class ChatLinkService {
         chatLinkRepository.save(link);
         return link;
     }
+
+    public List<ChatLink> unreadChats(){
+        for (ChatLink link : chatLinkRepository.findByIsreadIsFalse()) {
+            System.out.println(link);
+        }
+        return chatLinkRepository.findByIsreadIsFalse();
+    }
 }

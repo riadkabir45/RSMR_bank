@@ -41,7 +41,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/support">Customer Support</a>
+                        <a class="nav-link" th:href="*{contains('PartMod')} ? '/mod/serve' : '/support'">Customer Support</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>

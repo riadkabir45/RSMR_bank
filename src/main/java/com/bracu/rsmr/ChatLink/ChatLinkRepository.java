@@ -12,4 +12,5 @@ import com.bracu.rsmr.User.User;
 public interface ChatLinkRepository extends JpaRepository<ChatLink,Long> {
     Optional<ChatLink> findByCustomer(User user);
     List<ChatLink> findBySupportIsNull();
+    List<ChatLink> findByIsreadIsFalse();
 }

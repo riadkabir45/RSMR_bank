@@ -43,9 +43,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form th:action="@{/chat/send}" method="post">
+                                <form th:action="@{/api/chats/send}" method="post">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="message" rows="3" placeholder="Type your message here..." required></textarea>
+                                        <input class="form-control" name="text" rows="3" placeholder="Type your message here..." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" th:value="${user.getId()}" class="form-control" name="sender" rows="3" placeholder="Type your message here..." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" th:value="${link.getId()}" class="form-control" name="link" rows="3" placeholder="Type your message here..." required>
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-4">Send</button>
                                 </form>
