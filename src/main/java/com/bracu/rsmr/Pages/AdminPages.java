@@ -35,4 +35,17 @@ public class AdminPages {
         model.addAttribute("users", filteredUsers);
         return "modPage";
     }
+
+    @GetMapping("/adminpage")
+    public String AdminPage(Model model) {
+        List<User> allUsers = userRepository.findAll();
+
+        List<User> filteredUsers = allUsers.stream()
+                .filter(user -> !user.getRoles().contains("Moderator"))
+                .collect(Collectors.toList());
+        User user = userService.securityContext();
+        model.addAttribute("user", user);
+        model.addAttribute("users", filteredUsers);
+        return "adminPage";
+    }
 }

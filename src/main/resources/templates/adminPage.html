@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!DOCTYPE html>
+<head th:replace="~{base :: head}" ></head>
+<body>
+    <nav th:replace="~{base :: nav}" ></nav>
+
+    <div th:replace="~{base :: error}" ></div>
+
+        <!-- Main Content -->
+        <div class="main-content p-4 w-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Users List</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>User ID</th>
+                                            <th>Username</th>
+                                            <th>Gmail</th>
+                                            <th>Current Status</th>
+                                            <th>Deactived Custumer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userTable"  th:each="user : ${users}">
+                                        <tr>
+                                            <td th:text="${user.id}"></td>
+                                            <td th:text="${user.username}"></td>
+                                            <td>name@gmail.com</td>
+                                            <td th:if="${user.getAccount().getDisabled()}"><span class="badge bg-warning">Account Active</span></td>
+                                            <td th:unless="${user.getAccount().getDisabled()}"><span class="badge bg-success">Account Deactive</span></td>
+                                            
+                                            <td th:if="${user.getAccount().getDisabled()}">
+                                                <form th:action="@{/api/mod/users/disabled/{id}(id=${user.id})}">
+                                                    <button type="submit" class="btn btn-sm btn-success">Deactivate Account</button>
+                                                </form>
+                                            </td>
+                                            <td th:unless="${user.getAccount().getDisabled()}">
+                                                <form th:action="@{/api/mod/users/disabled/{id}(id=${user.id})}">
+                                                    <button type="submit" class="btn btn-sm btn-danger">Activate Account</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{base :: footer}" ></footer>
+
+</body>
+</html>
