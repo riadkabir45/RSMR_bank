@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bracu.rsmr.Account.AccountService;
+import com.bracu.rsmr.ChatLink.ChatLink;
+import com.bracu.rsmr.ChatLink.ChatLinkService;
 import com.bracu.rsmr.User.User;
 import com.bracu.rsmr.User.UserRepository;
 import com.bracu.rsmr.User.UserService;
@@ -21,6 +23,8 @@ public class RsmrApplication implements CommandLineRunner {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private ChatLinkService chatLinkService;
 
     @Autowired
     private UserRepository userRepository;
@@ -49,7 +53,12 @@ public class RsmrApplication implements CommandLineRunner {
         //accountService.transferAmount(rifat, aowfi, 500D);
         accountService.transferAmount(aowfi.getAccount().getAccountId(), jahan.getAccount().getAccountId(), 300D);
         accountService.transferAmount(nabi.getAccount().getAccountId(), aritra.getAccount().getAccountId(), 900D);
-        // System.out.println(nabi.getAccount().get);
+
+        // Test ChatLink
+        // ChatLink lAowfi = chatLinkService.requestLink(aowfi);
+        // ChatLink lJahan = chatLinkService.requestLink(jahan);
+        // chatLinkService.setSupport(lJahan, rifat);
+        // chatLinkService.setSupport(lAowfi, rifat);
 	}
 
 }

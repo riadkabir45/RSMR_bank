@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}" ></head>
+<body>
+    <nav th:replace="~{base :: nav}" ></nav>
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card chat-container">
+                    <div class="card-header">
+                        <h5>Customer Support Chat</h5>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${link == null}">
+                            <p>No support agent has been assigned yet.</p>
+                            <form action="/api/links/request" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" th:value="${user.id}" name="customerId" id="username" placeholder="Enter Username" required>
+                                </div>
+                                <button type="submit" class="btn-create-request btn btn-success">Create Request</button> 
+                            </form>
+                        </div>
+                        <div th:unless="${link == null}">
+                            <p th:if="${link.getSupport() == null}" class="waiting-message">Your request has been submitted. Please wait for a support agent to respond.</p>
+                            <div  th:unless ="${link.getSupport() == null}">
+                                <h6>Chat with Support Agent</h6>
+                                <div th:if="${messages != null}">
+                                    <div th:each="message : ${messages}">
+                                        <div class="message-row" th:classappend="${message.sender == 'customer'} ? 'customer-message' : 'support-message'">
+                                            <p th:text="${message.text}"></p>
+                                            <span class="message-time" th:text="${#temporals.format(message.timestamp, 'HH:mm:ss')}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form th:action="@{/chat/send}" method="post">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="message" rows="3" placeholder="Type your message here..."></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{base :: footer}" ></footer>
+
+</body>
+</html>

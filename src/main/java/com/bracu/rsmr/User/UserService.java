@@ -74,6 +74,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User findUser(Long id){
+        return userRepository.findById(id).get();
+    }
+
     public User securityContext(){
         Authentication authenticated = SecurityContextHolder.getContext().getAuthentication();
         String username = authenticated.getName();
