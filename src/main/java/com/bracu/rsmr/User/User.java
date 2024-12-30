@@ -31,6 +31,7 @@ public class User {
     private String username;
     private String password;
     private List<String> roles;
+    private int points = 0;
     
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Account account;
