@@ -1,5 +1,6 @@
 package com.bracu.rsmr.ChatLink;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,8 @@ public class ChatLinkService {
 
     public Optional<ChatLink> getByCustomerId(Long customer){
         return chatLinkRepository.findByCustomer(userService.findUser(customer));
+    }
+    public List<ChatLink> pendingRequests(){
+        return chatLinkRepository.findBySupportIsNull();
     }
 }

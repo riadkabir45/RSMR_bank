@@ -28,6 +28,8 @@ public class UserPages {
         User user = userService.securityContext();
         model.addAttribute("user", user);
         List<String> roles = user.getRoles();
+        List<ChatLink> links  = chatLinkService.pendingRequests();
+        model.addAttribute("links", links);
         if(roles.contains("Customer"))
             return "index";
         else

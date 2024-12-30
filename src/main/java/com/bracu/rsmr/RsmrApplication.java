@@ -1,6 +1,7 @@
 package com.bracu.rsmr;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -55,8 +56,8 @@ public class RsmrApplication implements CommandLineRunner {
         accountService.transferAmount(nabi.getAccount().getAccountId(), aritra.getAccount().getAccountId(), 900D);
 
         // Test ChatLink
-        // ChatLink lAowfi = chatLinkService.requestLink(aowfi);
-        // ChatLink lJahan = chatLinkService.requestLink(jahan);
+        ChatLink lAowfi = chatLinkService.requestLink(aowfi);
+        ChatLink lJahan = chatLinkService.requestLink(jahan);
         // chatLinkService.setSupport(lJahan, rifat);
         // chatLinkService.setSupport(lAowfi, rifat);
 	}
