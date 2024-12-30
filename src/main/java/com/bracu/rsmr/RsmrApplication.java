@@ -70,6 +70,7 @@ public class RsmrApplication implements CommandLineRunner {
         chatService.sendText(aritra.getId(), lJahan.getId(), "Hello sir, How can I help.");
         chatService.sendText(jahan.getId(), lJahan.getId(), "Ai chat amake chat");
         chatService.sendText(aritra.getId(), lJahan.getId(), "Sir this is very inappropriate");
+        chatService.sendText(jahan.getId(), lJahan.getId(), "Ai chattttt");
 
         chatService.sendText(aritra.getId(), lSajid.getId(), "Hello sir, How can I help.");
 

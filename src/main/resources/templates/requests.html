@@ -20,11 +20,11 @@
                         <td th:text="${link.getId()}"></td>
                         <td th:text="${link.getCustomer().getUsername()}"></td>
                         <td>
-                            <form action="/api/links/accept" method="post">
+                            <form th:action="${actionURL}" method="post">
                                 <div class="form-group">
                                     <input type="hidden" class="form-control" th:value="${link.getId()}" name="id" id="username" placeholder="Enter Username" required>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                                <button type="submit" th:text="${action}" class="btn btn-sm btn-success">Accept</button>
                             </form>
                         </td>
                     </tr>

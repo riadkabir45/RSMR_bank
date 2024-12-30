@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bracu.rsmr.ChatLink.ChatLink;
+import com.bracu.rsmr.ChatLink.ChatLinkService;
+
 @RestController
 @RequestMapping("/api/chats")
 public class ChatController {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private ChatLinkService chatLinkService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getChats(@PathVariable("id") Long id){
@@ -28,8 +34,12 @@ public class ChatController {
     @PostMapping(value = "/send", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<?> sendText(Chat chat){
         chatService.sendText(chat);
+        ChatLink link = chatLinkService.findLink(chat.link);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/support"));
+        if(link.getCustomer().getId() == chat.getSender())
+            headers.setLocation(URI.create("/support"));
+        else
+            headers.setLocation(URI.create("/mod/serve/"+link.getId()));
         return new ResponseEntity<>(headers,HttpStatus.FOUND);
     }
 }

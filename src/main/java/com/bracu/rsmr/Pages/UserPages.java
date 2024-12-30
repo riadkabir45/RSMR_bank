@@ -79,6 +79,8 @@ public class UserPages {
         List<ChatLink> links  = chatLinkService.pendingRequests();
         model.addAttribute("links", links);
         model.addAttribute("user", user);
+        model.addAttribute("action", "Accept");
+        model.addAttribute("actionURL", "/api/links/accept");
         return "requests";
     }
 

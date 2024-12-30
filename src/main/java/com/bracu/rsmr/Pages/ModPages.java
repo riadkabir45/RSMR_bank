@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,11 +56,21 @@ public class ModPages {
     }
 
     @GetMapping("/serve")
-    public String support(Model model) {
+    public String supportList(Model model) {
         User user = userService.securityContext();
         List<ChatLink> link  = chatLinkService.unreadChats();
         model.addAttribute("links", link);
         model.addAttribute("user", user);
+        model.addAttribute("action", "Open");
+        model.addAttribute("actionURL", "/api/mod/links/open");
         return "requests";
+    }
+
+    @GetMapping("/serve/{id}")
+    public String support(Model model,@PathVariable("id") Long id) {
+        User user = userService.securityContext();
+        model.addAttribute("link", chatLinkService.findLink(id));
+        model.addAttribute("user", user);
+        return "support";
     }
 }

@@ -35,9 +35,9 @@ public class ChatService {
     public Chat sendText(Chat chat){
         ChatLink link = chatLinkService.findLink(chat.link);
         if(chat.sender == link.getCustomer().getId())
-            link.setIsread(false);
+        chatLinkService.isRead(link, false);
         else if(chat.sender == link.getSupport().getId())
-            link.setIsread(true);
+            chatLinkService.isRead(link, true);
         else
             throw new AccessDeniedException("Sender is not authorized!!");
         chatRepository.save(chat);
