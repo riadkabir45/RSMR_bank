@@ -71,4 +71,15 @@ public class UserPages {
         return "support";
     }
 
+    @GetMapping("/requests")
+    public String requests(Model model,@RequestParam(required = false) String error) {
+        User user = userService.securityContext();
+        if(error != null)
+            model.addAttribute("error",error);
+        List<ChatLink> links  = chatLinkService.pendingRequests();
+        model.addAttribute("links", links);
+        model.addAttribute("user", user);
+        return "requests";
+    }
+
 }

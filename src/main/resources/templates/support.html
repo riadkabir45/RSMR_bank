@@ -23,8 +23,30 @@
                         </div>
                         <div th:unless="${link == null}">
                             <p th:if="${link.getSupport() == null}" class="waiting-message">Your request has been submitted. Please wait for a support agent to respond.</p>
-                            <div  th:unless ="${link.getSupport() == null}">
-                                <h6>Chat with Support Agent</h6>
+                            <div  th:unless="${link.getSupport() == null}">
+                                <div class="mb-3 fluid">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Chat Window
+                                        </div>
+                                        <div class="card-body" style="height: 300px; overflow-y: scroll;">
+                                            <ul class="list-unstyled">
+                                                <li class="text-end">
+                                                    This is a sample message from the other user.</br>
+                                                    <small class="text-muted">10:00 AM</small></br></br>
+                                                </li>
+                                                <li class="text-start">
+                                                    This is a sample message from the other user.</br>
+                                                    <small class="text-muted">10:00 AM</small></br></br>
+                                                </li>
+                                                <li class="text-end">
+                                                    This is a sample message from the other user.</br>
+                                                    <small class="text-muted">10:00 AM</small></br></br>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div th:if="${messages != null}">
                                     <div th:each="message : ${messages}">
                                         <div class="message-row" th:classappend="${message.sender == 'customer'} ? 'customer-message' : 'support-message'">
@@ -37,7 +59,7 @@
                                     <div class="form-group">
                                         <textarea class="form-control" name="message" rows="3" placeholder="Type your message here..."></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Send</button>
+                                    <button type="submit" class="btn btn-primary mt-4">Send</button>
                                 </form>
                             </div>
                         </div>

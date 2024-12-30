@@ -41,4 +41,22 @@ public class ChatLinkService {
     public List<ChatLink> pendingRequests(){
         return chatLinkRepository.findBySupportIsNull();
     }
+
+    public ChatLink acceptRequests(Long user){
+        User support = userService.findUser(user);
+
+        return new ChatLink();
+    }
+
+    public ChatLink findLink(Long id){
+        return chatLinkRepository.findById(id).get();
+    }
+
+    
+    public ChatLink setSupport(Long id,User support){
+        ChatLink link = chatLinkRepository.findById(id).get();
+        link.setSupport(support);
+        chatLinkRepository.save(link);
+        return link;
+    }
 }
