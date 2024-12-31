@@ -26,9 +26,6 @@
                             <div  th:unless="${link.getSupport() == null}">
                                 <div class="mb-3 fluid">
                                     <div class="card">
-                                        <div class="card-header">
-                                            Chat Window
-                                        </div>
                                         <div class="card-body mh-50 overflow-auto w-100">
                                             <ul class="list-unstyled" id="chat">
                                             </ul>
@@ -84,24 +81,46 @@
                 data.forEach(element => {
 
                     const message = document.createElement('li');
-                    message.classList.add('ctext');
+                    message.classList.add('mb-1');
 
-                    if(userid == element['sender'])
+                    if(userid == element['sender']){
                         message.classList.add('text-end');
-                    else
-                    message.classList.add('text-start');
+                        message.classList.add('d-flex');
+                        message.classList.add('flex-row-reverse');
+                        message.classList.add('align-items-center');
+                    }else{
+                        message.classList.add('text-start');
+                        message.classList.add('d-flex');
+                        message.classList.add('align-items-center');
+                    }
 
                     const messageText = document.createElement('span');
                     messageText.textContent = element['text'];
-                    message.appendChild(messageText);
-
-                    message.appendChild(document.createElement('br'));
+                    messageText.classList.add('bg-primary');
+                    messageText.classList.add('p-2');
+                    messageText.classList.add('rounded');
+                    messageText.classList.add('text-light');
+                    messageText.classList.add('ctext');
 
                     const timestamp = document.createElement('small');
                     timestamp.classList.add('text-muted');
+                    timestamp.classList.add('ctime');
                     timestamp.textContent = getNormalTime(element['date']);
+                    const space = document.createTextNode('    ');
+
+                    // if(element['sender'] != userid){
+                    //     message.appendChild(messageText);
+                    //     message.appendChild(space);
+                    //     message.appendChild(timestamp);
+                    // }else{
+                    //     message.appendChild(timestamp);
+                    //     message.appendChild(space);
+                    //     message.appendChild(messageText);
+                    // }
+                    //timestamp.appendChild(document.createElement('br'));
+                    message.appendChild(messageText);
+                    message.appendChild(space);
                     message.appendChild(timestamp);
-                    timestamp.appendChild(document.createElement('br'));
 
                     chatList.appendChild(message);
                 });

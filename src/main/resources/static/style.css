@@ -30,10 +30,10 @@ footer {
     max-height: 50vh;
 }
 
-.ctext:hover > small {
+.ctext:hover ~ .ctime {
     display: inline; 
 }
 
-.ctext:not(:hover) > small {
+.ctext:not(:hover) ~ .ctime {
     display: none; 
 }
