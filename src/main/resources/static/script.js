@@ -80,3 +80,48 @@ const date = new Date(isoString);
 
   return formattedDate;
 }
+
+function sendAndAct(url,event,actionHandler){
+  event.preventDefault(); 
+
+    const formData = new FormData(event.target);
+
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (!(response.ok || response.found)) {
+        throw new Error('Network response was not ok');
+      }
+      //return response.json(); 
+    })
+    .then(data => {
+      actionHandler(data); 
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+}
+
+function callAndAct(url,event,actionHandler){
+  event.preventDefault(); 
+
+    const formData = new FormData(event.target);
+
+    fetch(url, {
+      method: 'GET'
+    })
+    .then(response => {
+      if (!(response.ok || response.found)) {
+        throw new Error('Network response was not ok');
+      }
+      //return response.json(); 
+    })
+    .then(data => {
+      actionHandler(data); 
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+}

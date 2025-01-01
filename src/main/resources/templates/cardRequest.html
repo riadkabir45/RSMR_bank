@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}" ></head>
+<body>
+    <nav th:replace="~{base :: nav}" ></nav>
+    
+     <div class="container py-5">
+        <div class="d-flex flex-column gap-4 align-items-center">
+             <form id="debit">
+                <button type="submit" class="card text-white bg-primary shadow position-relative" style="width: 22rem; border-radius: 15px;">
+                    <div class="position-absolute top-0 end-0 p-2 text-uppercase fw-bold">Credit</div>
+                    <div class="card-body">
+                        <div class="bg-light mb-3" style="width: 60px; height: 40px; border-radius: 5px;"></div>
+                        <h5 class="card-title fs-4 text-center">1234 5678 9012 3456</h5>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <small>Card Holder</small>
+                                <div>John Doe</div>
+                            </div>
+                            <div>
+                                <small>Expires</small>
+                                <div>12/25</div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+             </form>
+             <form id="credit">
+                <button type="submit" class="card text-white bg-secondary shadow position-relative" style="width: 22rem; border-radius: 15px;">
+                    <div class="position-absolute top-0 end-0 p-2 text-uppercase fw-bold">Credit</div>
+                    <div class="card-body">
+                        <div class="bg-light mb-3" style="width: 60px; height: 40px; border-radius: 5px;"></div>
+                        <h5 class="card-title fs-4 text-center">1234 5678 9012 3456</h5>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <small>Card Holder</small>
+                                <div>John Doe</div>
+                            </div>
+                            <div>
+                                <small>Expires</small>
+                                <div>12/25</div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+             </form>
+        </div>
+    </div>
+
+    <!-- Request Card Button -->
+    <button hidden="true" class="btn btn-primary position-fixed bottom-0 end-0 m-4" style="z-index: 1050;">Request Card</button>
+
+    
+    <footer th:replace="~{base :: footer}" ></footer>
+    <script>
+        function redirect(){
+            window.location.href = "/cards";
+        }
+        document.getElementById('debit').addEventListener("submit",function(event){
+            console.log("in debit");
+            
+            callAndAct('/api/users/card/debit',event,redirect)
+        });
+        document.getElementById('credit').addEventListener("submit",function(event){
+            callAndAct('/api/users/card/credit',event,redirect,"GET")
+        });
+    </script>
+
+</body>
+</html>

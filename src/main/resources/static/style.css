@@ -55,6 +55,10 @@ footer {
     position: relative;
 }
 
+.card{
+    text-decoration: none;
+}
+
 .overlay {
     position: absolute; 
     top: 0;

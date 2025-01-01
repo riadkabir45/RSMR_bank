@@ -57,7 +57,7 @@ public class UserController {
         }
         return new ResponseEntity<>(headers,HttpStatus.FOUND);
     }
-
+  
     @PostMapping("/send-otp/{id}")
     public ResponseEntity<?> sendOtp(@PathVariable Long id) {
         User user = userService.findById(id);
@@ -67,7 +67,12 @@ public class UserController {
         String otp = otpService.generateOtp();
         otpService.sendOtp(user.getEmail(), otp);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    @GetMapping("/card/{type}")
+    public ResponseEntity<?> requestCard(@PathVariable("type") String type){
+        userService.requestCard(userService.securityContext().getAccount(), type);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
