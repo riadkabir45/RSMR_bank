@@ -6,15 +6,19 @@
     
     <div class="container mt-5 d-flex flex-column align-items-center">
         
-        <div class="col-md-6 col-lg-5 col-xl-4 col-sm-8 col-8 mb-12 overlay-box">
+        <div th:each="card : ${cards}" class="col-md-6 col-lg-5 col-xl-4 col-sm-8 col-8 mb-12 overlay-box">
             <img src="/images/card.svg" alt="">
             <div class="overlay">
                 <div class="d-flex justify-content-between w-75 mt-5 pt-5" >
-                    <p class="h4">1245</p>
-                    <p class="h4">1245</p>
-                    <p class="h4">1245</p>
-                    <p class="h4">1245</p>
+                    <p th:text="*{card.getCardId().substring(0, 4)}" class="h4">1245</p>
+                    <p th:text="*{card.getCardId().substring(4, 8)}" class="h4">1245</p>
+                    <p th:text="*{card.getCardId().substring(8, 12)}" class="h4">1245</p>
+                    <p th:text="*{card.getCardId().substring(12, 16)}" class="h4">1245</p>
                 </div>
+            </div>
+            <div class="overlay d-flex justify-content-between align-items-end pb-5">
+                <i class="mb-5 ms-5 ps-2" th:text="*{card.getExpiryDate()}">12/33</i>
+                <i class="mb-5 me-5 pe-2" th:text="*{card.getCardType()}">VISA</i>
             </div>
         </div>
     </div>

@@ -89,6 +89,7 @@ public class UserPages {
         User user = userService.securityContext();
         if(error != null)
             model.addAttribute("error",error);
+        model.addAttribute("cards", user.getAccount().getCards());
         model.addAttribute("user", user);
         return "cards";
     }
