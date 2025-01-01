@@ -83,5 +83,15 @@ public class UserPages {
         model.addAttribute("actionURL", "/api/links/accept");
         return "requests";
     }
+    
+    @GetMapping("/cards")
+    public String cards(Model model,@RequestParam(required = false) String error) {
+        User user = userService.securityContext();
+        if(error != null)
+            model.addAttribute("error",error);
+        model.addAttribute("cards", user.getAccount().getCards());
+        model.addAttribute("user", user);
+        return "cards";
+    }
 
 }

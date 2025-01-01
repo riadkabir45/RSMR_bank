@@ -8,6 +8,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bracu.rsmr.Card.CardService;
 import com.bracu.rsmr.Transaction.Transaction;
 import com.bracu.rsmr.Transaction.TransactionService;
 
@@ -23,8 +24,12 @@ public class AccountService {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private CardService cardService;
+
     public boolean createAccount(Account account){
         account.setAccountId(UUID.randomUUID().toString());
+        account.getCards().add(cardService.createCard());
         accountRepository.save(account);
         return true;
     }

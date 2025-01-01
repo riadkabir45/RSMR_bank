@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bracu.rsmr.Account.AccountService;
+import com.bracu.rsmr.Card.Card;
+import com.bracu.rsmr.Card.CardRepository;
 import com.bracu.rsmr.Chat.ChatService;
 import com.bracu.rsmr.ChatLink.ChatLink;
 import com.bracu.rsmr.ChatLink.ChatLinkService;
@@ -30,6 +32,9 @@ public class RsmrApplication implements CommandLineRunner {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private CardRepository cardRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RsmrApplication.class, args);
@@ -76,6 +81,9 @@ public class RsmrApplication implements CommandLineRunner {
         chatService.sendText(aritra.getId(), lSajid.getId(), "Hello sir, How can I help.");
 
         chatService.getChat(lJahan.getId());
+
+        // Card test
+
 	}
 
 }

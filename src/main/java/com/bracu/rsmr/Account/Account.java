@@ -1,5 +1,9 @@
 package com.bracu.rsmr.Account;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bracu.rsmr.Card.Card;
 import com.bracu.rsmr.User.User;
 
 import jakarta.persistence.Entity;
@@ -7,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +31,8 @@ public class Account {
     private Double balance;
     private boolean disabled;
     private Long nId;
+    @OneToMany
+    private List<Card> cards = new ArrayList<>();
     
     @OneToOne
     @JoinColumn(name = "user_id")

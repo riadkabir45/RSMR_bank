@@ -37,3 +37,32 @@ footer {
 .ctext:not(:hover) ~ .ctime {
     display: none; 
 }
+
+.bcard{
+    background-color: #131112;
+}
+
+.bcard p {
+    color: #F7F7FF;
+}
+
+.card-ic {
+    background-color: #F8B24B;
+    color: #F8B24B91;
+}
+
+.overlay-box{
+    position: relative;
+}
+
+.overlay {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #131112 !important;
+    display: flex; /* Center content using flexbox */
+    justify-content: center;
+    align-items: center;
+}
