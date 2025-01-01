@@ -31,7 +31,7 @@ public class ChatController {
         return new ResponseEntity<>(chatService.getChat(id),HttpStatus.OK);
     }
 
-    @PostMapping(value = "/send", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PostMapping("/send")
     public ResponseEntity<?> sendText(Chat chat){
         chatService.sendText(chat);
         ChatLink link = chatLinkService.findLink(chat.link);

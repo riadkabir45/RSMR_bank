@@ -40,7 +40,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form th:action="@{/api/chats/send}" method="post">
+                                <form id="chatSubmit" th:action="@{/api/chats/send}" method="post">
                                     <div class="form-group">
                                         <input class="form-control" name="text" rows="3" placeholder="Type your message here..." required>
                                     </div>
@@ -62,6 +62,9 @@
 
     <footer th:replace="~{base :: footer}" ></footer>
     <script th:inline="javascript">
+        document.getElementById('chatSubmit').addEventListener("submit",function(event){
+            sendAndAct('/api/chats/send',event,updateChat)
+        });
     /*<![CDATA[*/
         var userid = /*[[${user.getId()}]]*/ null;
         var chatid = /*[[${link.getId()}]]*/ null;
