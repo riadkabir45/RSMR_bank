@@ -88,4 +88,12 @@ public class AccountService {
         accountRepository.save(account);
         return account;
     }
+
+    public Account cardPayment(Account account,int amount){
+        if(account.getBalance() < amount)
+            throw new IllegalArgumentException("Insufficient Balance");
+        account.setBalance(account.getBalance()-amount);
+        accountRepository.save(account);
+        return account;
+    }
 }

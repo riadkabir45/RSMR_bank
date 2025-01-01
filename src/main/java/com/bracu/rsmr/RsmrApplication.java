@@ -80,7 +80,9 @@ public class RsmrApplication implements CommandLineRunner {
         chatService.getChat(lJahan.getId());
 
         // Card test
-        cardService.requestCard(jahan.getAccount(), "Credit");
+        cardService.approveCard(cardService.requestCard(jahan.getAccount(), "Credit").getId());
+        cardService.approveCard(cardService.requestCard(jahan.getAccount(), "Debit").getId());
+
 	}
 
 }

@@ -6,7 +6,7 @@
     
     <div class="container py-5">
         <div class="d-flex flex-column gap-4 align-items-center">
-            <button  th:each="card : ${cards}" th:with="cardType=*{card.getCardType()}" type="submit" th:class="| ${cardType == 'Debit'?'bg-primary':cardType == 'Credit'?'bg-warning':'bg-secondary'} card text-white shadow position-relative|" style="width: 22rem; border-radius: 15px;">
+            <button onclick="copyToClipboard(this)" th:each="card : ${cards}" th:with="cardType=*{card.getCardType()}" type="submit" th:class="| ${cardType == 'Debit'?'bg-primary':cardType == 'Credit'?'bg-warning':'bg-secondary'} card text-white shadow position-relative|" style="width: 22rem; border-radius: 15px;">
                 <div class="position-absolute top-0 end-0 p-2 text-uppercase fw-bold" th:text="*{card.getCardType()}">Credit</div>
                 <div class="card-body">
                     <div class="bg-light mb-3" style="width: 60px; height: 40px; border-radius: 5px;"></div>
@@ -30,6 +30,27 @@
 
     
     <footer th:replace="~{base :: footer}" ></footer>
+
+    <script>
+        function copyToClipboard(button) {
+
+        const cardNumberElement = button.querySelector('.card-title'); 
+        const cardNumber = cardNumberElement.textContent.replace(' ', '').replace(' ', '').replace(' ', ''); 
+        console.log(cardNumber);
+        
+
+        const tempInput = document.createElement("textarea");
+        tempInput.value = cardNumber;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        document.execCommand("copy");
+
+        document.body.removeChild(tempInput);
+
+        //alert("Card number copied to clipboard!");
+        }
+    </script>
 
 </body>
 </html>
