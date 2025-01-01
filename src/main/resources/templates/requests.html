@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}" ></head>
+<body>
+    <nav th:replace="~{base :: nav}" ></nav>
+    
+    <div class="container mt-5">
+        <h2>Pending Requests</h2>
+        <div class="table-container"> 
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody th:each="link: ${links}">
+                    <tr>
+                        <td th:text="${link.getId()}"></td>
+                        <td th:text="${link.getCustomer().getUsername()}"></td>
+                        <td>
+                            <form th:action="${actionURL}" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" th:value="${link.getId()}" name="id" id="username" placeholder="Enter Username" required>
+                                </div>
+                                <button type="submit" th:text="${action}" class="btn btn-sm btn-success">Accept</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <footer th:replace="~{base :: footer}" ></footer>
+
+</body>
+</html>

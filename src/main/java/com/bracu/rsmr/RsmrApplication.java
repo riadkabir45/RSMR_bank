@@ -1,6 +1,7 @@
 package com.bracu.rsmr;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -8,6 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bracu.rsmr.Account.AccountService;
+import com.bracu.rsmr.Chat.ChatService;
+import com.bracu.rsmr.ChatLink.ChatLink;
+import com.bracu.rsmr.ChatLink.ChatLinkService;
 import com.bracu.rsmr.User.User;
 import com.bracu.rsmr.User.UserRepository;
 import com.bracu.rsmr.User.UserService;
@@ -21,9 +25,11 @@ public class RsmrApplication implements CommandLineRunner {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private ChatLinkService chatLinkService;
 
     @Autowired
-    private UserRepository userRepository;
+    private ChatService chatService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RsmrApplication.class, args);
@@ -50,7 +56,26 @@ public class RsmrApplication implements CommandLineRunner {
         //accountService.transferAmount(rifat, aowfi, 500D);
         accountService.transferAmount(aowfi.getAccount().getAccountId(), jahan.getAccount().getAccountId(), 300D);
         accountService.transferAmount(nabi.getAccount().getAccountId(), aritra.getAccount().getAccountId(), 900D);
-        // System.out.println(nabi.getAccount().get);
+
+        // Test ChatLink
+        ChatLink lAowfi = chatLinkService.requestLink(aowfi);
+        ChatLink lJahan = chatLinkService.requestLink(jahan);
+        ChatLink lSajid = chatLinkService.requestLink(sajid);
+        // chatLinkService.setSupport(lJahan, rifat);
+        // chatLinkService.setSupport(lAowfi, rifat);
+
+        // Test Chat
+        chatLinkService.setSupport(lJahan, aritra);
+        chatLinkService.setSupport(lSajid, aritra);
+
+        chatService.sendText(aritra.getId(), lJahan.getId(), "Hello sir, How can I help.");
+        chatService.sendText(jahan.getId(), lJahan.getId(), "Ai chat amake chat");
+        chatService.sendText(aritra.getId(), lJahan.getId(), "Sir this is very inappropriate");
+        chatService.sendText(jahan.getId(), lJahan.getId(), "Ai chattttt");
+
+        chatService.sendText(aritra.getId(), lSajid.getId(), "Hello sir, How can I help.");
+
+        chatService.getChat(lJahan.getId());
 	}
 
 }

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}" ></head>
+<body>
+    <nav th:replace="~{base :: nav}" ></nav>
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card chat-container">
+                    <div class="card-header">
+                        <h5>Customer Support Chat</h5>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${link == null}">
+                            <p>No support agent has been assigned yet.</p>
+                            <form action="/api/links/request" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" th:value="${user.id}" name="customerId" id="username" placeholder="Enter Username" required>
+                                </div>
+                                <button type="submit" class="btn-create-request btn btn-success">Create Request</button> 
+                            </form>
+                        </div>
+                        <div th:unless="${link == null}">
+                            <p th:if="${link.getSupport() == null}" class="waiting-message">Your request has been submitted. Please wait for a support agent to respond.</p>
+                            <div  th:unless="${link.getSupport() == null}">
+                                <div class="mb-3 fluid">
+                                    <div class="card">
+                                        <div class="card-body mh-50 overflow-auto w-100">
+                                            <ul class="list-unstyled" id="chat">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:if="${messages != null}">
+                                    <div th:each="message : ${messages}">
+                                        <div class="message-row" th:classappend="${message.sender == 'customer'} ? 'customer-message' : 'support-message'">
+                                            <p th:text="${message.text}"></p>
+                                            <span class="message-time" th:text="${#temporals.format(message.timestamp, 'HH:mm:ss')}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form th:action="@{/api/chats/send}" method="post">
+                                    <div class="form-group">
+                                        <input class="form-control" name="text" rows="3" placeholder="Type your message here..." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" th:value="${user.getId()}" class="form-control" name="sender" rows="3" placeholder="Type your message here..." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" th:value="${link.getId()}" class="form-control" name="link" rows="3" placeholder="Type your message here..." required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-4">Send</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{base :: footer}" ></footer>
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        var userid = /*[[${user.getId()}]]*/ null;
+        var chatid = /*[[${link.getId()}]]*/ null;
+        function updateChat(){
+            fetch('/api/chats/'+chatid) 
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const chatList = document.getElementById('chat'); 
+                while (chatList.firstChild) {
+                    chatList.removeChild(chatList.firstChild);
+                }
+                data.forEach(element => {
+
+                    const message = document.createElement('li');
+                    message.classList.add('mb-1');
+
+                    if(userid == element['sender']){
+                        message.classList.add('text-end');
+                        message.classList.add('d-flex');
+                        message.classList.add('flex-row-reverse');
+                        message.classList.add('align-items-center');
+                    }else{
+                        message.classList.add('text-start');
+                        message.classList.add('d-flex');
+                        message.classList.add('align-items-center');
+                    }
+
+                    const messageText = document.createElement('span');
+                    messageText.textContent = element['text'];
+                    messageText.classList.add('bg-primary');
+                    messageText.classList.add('p-2');
+                    messageText.classList.add('rounded');
+                    messageText.classList.add('text-light');
+                    messageText.classList.add('ctext');
+
+                    const timestamp = document.createElement('small');
+                    timestamp.classList.add('text-muted');
+                    timestamp.classList.add('ctime');
+                    timestamp.textContent = getNormalTime(element['date']);
+                    const space = document.createTextNode('    ');
+
+                    // if(element['sender'] != userid){
+                    //     message.appendChild(messageText);
+                    //     message.appendChild(space);
+                    //     message.appendChild(timestamp);
+                    // }else{
+                    //     message.appendChild(timestamp);
+                    //     message.appendChild(space);
+                    //     message.appendChild(messageText);
+                    // }
+                    //timestamp.appendChild(document.createElement('br'));
+                    message.appendChild(messageText);
+                    message.appendChild(space);
+                    message.appendChild(timestamp);
+
+                    chatList.appendChild(message);
+                });
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+        updateChat()
+        setInterval(() => {updateChat()} ,1000);
+    /*]]>*/
+    </script>
+
+</body>
+</html>

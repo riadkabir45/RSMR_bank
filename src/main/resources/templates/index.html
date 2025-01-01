@@ -7,6 +7,40 @@
     <!-- User Details and Account Overview -->
     <div class="container mt-5">
         <div class="row">
+            <div th:if="${user.getRoles().contains('PartMod')}" class="row">
+                <!-- Reports Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Report Notifications</h5>
+                            <p class="card-text">You have <strong>5 new reports</strong> waiting for your review.</p>
+                            <a href="#" class="btn btn-light">View Reports</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Verification Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">User Verification Pending</h5>
+                            <p class="card-text">There are <strong>3 users</strong> waiting for verification.</p>
+                            <a href="#" class="btn btn-light">Verify Users</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Admin Stats Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">User Support Request Pending</h5>
+                            <p class="card-text">There are <strong><span th:text="${links.size()}" ></span> users</strong> waiting for support.</p>
+                            <a href="/requests" class="btn btn-light">Support Users</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- User Info -->
             <div class="col-md-4">
                 <div class="card">
