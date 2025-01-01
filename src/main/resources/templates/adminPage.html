@@ -22,6 +22,7 @@
                                             <th>User ID</th>
                                             <th>Username</th>
                                             <th>Gmail</th>
+                                            <th>Send OTP</th>
                                             <th>Current Status</th>
                                             <th>Deactived Custumer</th>
                                         </tr>
@@ -30,7 +31,12 @@
                                         <tr>
                                             <td th:text="${user.id}"></td>
                                             <td th:text="${user.username}"></td>
-                                            <td>name@gmail.com</td>
+                                            <td th:text="${user.getEmail()}"></td>
+                                            <td>
+                                                <form th:action="@{/api/users/send-otp/{id}(id=${user.id})}" method="post">
+                                                    <button type="submit" class="btn btn-sm btn-primary">Send OTP</button>
+                                                </form>
+                                            </td>
                                             <td th:if="${user.getAccount().getDisabled()}"><span class="badge bg-warning">Account Active</span></td>
                                             <td th:unless="${user.getAccount().getDisabled()}"><span class="badge bg-success">Account Deactive</span></td>
                                             

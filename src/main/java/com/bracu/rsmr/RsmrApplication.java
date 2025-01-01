@@ -38,14 +38,15 @@ public class RsmrApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		User rifat = userService.createUser(new User("Rifat","pixel",Arrays.asList("Moderator")));
-        User Sishir = userService.createUser(new User("Sishir","Xpress",Arrays.asList("Moderator")));
-        User nabi = userService.createUser(new User("Nabi","Crypto"));
-        User aritra = userService.createUser(new User("Aritra","Dhuk"));
-        User jahan = userService.createUser(new User("Jahan","Misti"));
-        User sajid = userService.createUser(new User("Sajid","Flex"));
-        User jenith = userService.createUser(new User("Jenith","Gym"));
-        User aowfi = userService.createUser(new User("Aowfi","MyNigga"));
+		User rifat = userService.createUser(new User("Rifat", "pixel", "rifatmahamd1@gmail.com", Arrays.asList("Moderator")));
+        User sishir = userService.createUser(new User("Sishir", "Xpress", "rifatmahamd1@gmail.com", Arrays.asList("Moderator")));
+        User nabi = userService.createUser(new User("Nabi", "Crypto", "rifatmahamd1@gmail.com"));
+        User aritra = userService.createUser(new User("Aritra", "Dhuk", "rifatmahamd1@gmail.com"));
+        User jahan = userService.createUser(new User("Jahan", "Misti", "rifatmahamd1@gmail.com"));
+        User sajid = userService.createUser(new User("Sajid", "Flex", "rifatmahamd1@gmail.com"));
+        User jenith = userService.createUser(new User("Jenith", "Gym", "rifatmahamd1@gmail.com"));
+        User aowfi = userService.createUser(new User("Aowfi", "MyNigga", "rifatmahamd1@gmail.com"));
+
 
         
         // Add PartMod

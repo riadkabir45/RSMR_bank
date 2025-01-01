@@ -85,6 +85,10 @@ public class UserService {
         return user;
     }
 
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+  
     public void requestCard(Account account, String type) {
         accountService.requestCard(account, type);
     }
