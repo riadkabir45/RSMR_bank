@@ -14,11 +14,11 @@
                     <div class="d-flex justify-content-between">
                         <div>
                             <small>Card Holder</small>
-                            <div>John Doe</div>
+                            <div th:text="${user.getUsername()}">John Doe</div>
                         </div>
                         <div>
                             <small>Expires</small>
-                            <div>12/25</div>
+                            <div th:text="${card.getExpiryDate()}">12/25</div>
                         </div>
                     </div>
                 </div>
