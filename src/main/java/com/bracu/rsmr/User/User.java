@@ -30,21 +30,28 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    private String email;
     private List<String> roles;
     
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Account account;
     
-    public User(String username, String password, List<String> roles) {
+    public User(String username, String password, String email, List<String> roles) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.roles = new ArrayList<>(roles);
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.roles = new ArrayList<>(Arrays.asList("Customer"));
+    }
+
+    public String getEmail() {
+        return email;
     }
     
 
