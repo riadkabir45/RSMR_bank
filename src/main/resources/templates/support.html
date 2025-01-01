@@ -68,6 +68,7 @@
     /*<![CDATA[*/
         var userid = /*[[${user.getId()}]]*/ null;
         var chatid = /*[[${link.getId()}]]*/ null;
+        var lastUpdate = null;
         function updateChat(){
             fetch('/api/chats/'+chatid) 
             .then(response => {
@@ -77,6 +78,8 @@
                 return response.json();
             })
             .then(data => {
+                if (lastUpdate == JSON.stringify(data))
+                    return;
                 const chatList = document.getElementById('chat'); 
                 while (chatList.firstChild) {
                     chatList.removeChild(chatList.firstChild);
@@ -127,6 +130,7 @@
 
                     chatList.appendChild(message);
                 });
+                lastUpdate = JSON.stringify(data);
             })
             .catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
