@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bracu.rsmr.Card.Card;
+import com.bracu.rsmr.Card.CardService;
 import com.bracu.rsmr.ChatLink.ChatLink;
 import com.bracu.rsmr.ChatLink.ChatLinkService;
 import com.bracu.rsmr.User.User;
@@ -23,12 +25,17 @@ public class UserPages {
     @Autowired
     private ChatLinkService chatLinkService;
 
+    @Autowired
+    private CardService cardService;
+
     @GetMapping("/")
     public String index(Model model) {
         User user = userService.securityContext();
         model.addAttribute("user", user);
         List<String> roles = user.getRoles();
         List<ChatLink> links  = chatLinkService.pendingRequests();
+        List<Card> cards = cardService.listApproval(false);
+        model.addAttribute("cards", cards);
         model.addAttribute("links", links);
         if(roles.contains("Customer"))
             return "index";
@@ -89,7 +96,7 @@ public class UserPages {
         User user = userService.securityContext();
         if(error != null)
             model.addAttribute("error",error);
-        model.addAttribute("cards", user.getAccount().getCards());
+        model.addAttribute("cards", cardService.approvedUseCards(userService.securityContext().getAccount()));
         model.addAttribute("user", user);
         return "cards";
     }

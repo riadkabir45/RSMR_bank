@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bracu.rsmr.Account.AccountService;
 import com.bracu.rsmr.Card.CardRepository;
+import com.bracu.rsmr.Card.CardService;
 import com.bracu.rsmr.Chat.ChatService;
 import com.bracu.rsmr.ChatLink.ChatLink;
 import com.bracu.rsmr.ChatLink.ChatLinkService;
@@ -30,7 +31,7 @@ public class RsmrApplication implements CommandLineRunner {
     private ChatService chatService;
 
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RsmrApplication.class, args);
@@ -79,7 +80,7 @@ public class RsmrApplication implements CommandLineRunner {
         chatService.getChat(lJahan.getId());
 
         // Card test
-
+        cardService.requestCard(jahan.getAccount(), "Credit");
 	}
 
 }

@@ -23,9 +23,9 @@
                 <div class="col-md-4 mb-3">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">User Verification Pending</h5>
-                            <p class="card-text">There are <strong>3 users</strong> waiting for verification.</p>
-                            <a href="#" class="btn btn-light">Verify Users</a>
+                            <h5 class="card-title">User Cards Pending</h5>
+                            <p class="card-text">There are <strong><span th:text="${cards.size()}"></span> requests</strong> waiting for clearance.</p>
+                            <a href="/mod/pendingCards" class="btn btn-light">Accept Requests</a>
                         </div>
                     </div>
                 </div>

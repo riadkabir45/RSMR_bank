@@ -2,8 +2,6 @@ package com.bracu.rsmr.Pages;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
+import com.bracu.rsmr.Card.Card;
+import com.bracu.rsmr.Card.CardService;
 import com.bracu.rsmr.ChatLink.ChatLink;
 import com.bracu.rsmr.ChatLink.ChatLinkService;
 import com.bracu.rsmr.Transaction.TransactionRepository;
@@ -32,6 +32,9 @@ public class ModPages {
 
     @Autowired
     private ChatLinkService chatLinkService;
+
+    @Autowired
+    private CardService cardService;
 
     @GetMapping("/backtransfer")
     public String reverseTransfer(Model model) {
@@ -72,5 +75,17 @@ public class ModPages {
         model.addAttribute("link", chatLinkService.findLink(id));
         model.addAttribute("user", user);
         return "support";
+    }
+
+    @GetMapping("/pendingCards")
+    public String pendingCards(Model model) {
+        User user = userService.securityContext();
+        List<Card> link = cardService.listApproval(false);
+        System.out.println(link);
+        model.addAttribute("links", link);
+        model.addAttribute("user", user);
+        model.addAttribute("action", "Open");
+        model.addAttribute("actionURL", "/api/mod/links/open");
+        return "pendingCard";
     }
 }

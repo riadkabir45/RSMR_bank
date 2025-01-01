@@ -125,3 +125,7 @@ function callAndAct(url,event,actionHandler){
       console.error('There has been a problem with your fetch operation:', error);
     });
 }
+
+function reload(){
+  window.location.reload(); 
+}
