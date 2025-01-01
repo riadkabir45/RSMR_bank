@@ -85,4 +85,8 @@ public class UserService {
         return user;
     }
 
+    public void requestCard(Account account, String type) {
+        accountService.requestCard(account, type);
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,12 @@ public class UserController {
             headers.setLocation(URI.create("/signup?error="+"Server error".replace(" ", "%20")));
         }
         return new ResponseEntity<>(headers,HttpStatus.FOUND);
+    }
+
+    @GetMapping("/card/{type}")
+    public ResponseEntity<?> requestCard(@PathVariable("type") String type){
+        userService.requestCard(userService.securityContext().getAccount(), type);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

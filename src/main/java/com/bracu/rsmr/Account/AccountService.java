@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.bracu.rsmr.Card.CardService;
 import com.bracu.rsmr.Transaction.Transaction;
 import com.bracu.rsmr.Transaction.TransactionService;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -29,7 +28,7 @@ public class AccountService {
 
     public boolean createAccount(Account account){
         account.setAccountId(UUID.randomUUID().toString());
-        account.getCards().add(cardService.createCard());
+        account.getCards().add(cardService.createCard(account));
         accountRepository.save(account);
         return true;
     }
@@ -82,5 +81,11 @@ public class AccountService {
 
     public void transferAmount(Transaction transaction) throws Exception{
         transferAmount(transaction.getSrcId(), transaction.getDstId(), transaction.getAmount());
+    }
+
+    public Account requestCard(Account account,String type){
+        account.getCards().add(cardService.requestCard(account,type));
+        accountRepository.save(account);
+        return account;
     }
 }

@@ -94,4 +94,13 @@ public class UserPages {
         return "cards";
     }
 
+    @GetMapping("/cardRequest")
+    public String cardRequest(Model model,@RequestParam(required = false) String error) {
+        User user = userService.securityContext();
+        if(error != null)
+            model.addAttribute("error",error);
+        model.addAttribute("user", user);
+        return "cardRequest";
+    }
+
 }

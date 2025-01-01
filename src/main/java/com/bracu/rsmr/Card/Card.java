@@ -4,11 +4,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
+import com.bracu.rsmr.Account.Account;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +31,11 @@ public class Card {
     private String cardId;
     private LocalDate expiryDate;
     private String cardType = "Internal";
+    private boolean approved = true;
+    private boolean disabled = false;
+    private Long balance = 0L;
+    @ManyToOne
+    protected Account owner;
 
     @PostConstruct
     public void generateCardId() {

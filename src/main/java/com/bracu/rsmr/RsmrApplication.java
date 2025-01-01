@@ -1,21 +1,17 @@
 package com.bracu.rsmr;
 
 import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bracu.rsmr.Account.AccountService;
-import com.bracu.rsmr.Card.Card;
 import com.bracu.rsmr.Card.CardRepository;
 import com.bracu.rsmr.Chat.ChatService;
 import com.bracu.rsmr.ChatLink.ChatLink;
 import com.bracu.rsmr.ChatLink.ChatLinkService;
 import com.bracu.rsmr.User.User;
-import com.bracu.rsmr.User.UserRepository;
 import com.bracu.rsmr.User.UserService;
 
 @SpringBootApplication
