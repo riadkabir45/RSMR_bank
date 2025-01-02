@@ -26,6 +26,7 @@ public class CashPackage {
     @ManyToOne
     private Account account;
     private CashPackageType packageType;
+    private int passed = 0;
     private Long amount;
     private LocalDate date = LocalDate.now();
     private LocalDate expiryDate;

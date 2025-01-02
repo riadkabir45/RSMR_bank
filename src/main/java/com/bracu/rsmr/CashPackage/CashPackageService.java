@@ -1,17 +1,25 @@
 package com.bracu.rsmr.CashPackage;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.bracu.rsmr.Account.Account;
+import com.bracu.rsmr.Account.AccountService;
 
 @Service
 public class CashPackageService {
 
     @Autowired
     private CashPackageRepository cashPackageRepository;
+
+    @Autowired
+    @Lazy
+    protected AccountService accountService;
 
     public CashPackage createCashPackage(Account account,CashPackageType ptype,int interlval ,Long amount){
         CashPackage cpkg = new CashPackage();
@@ -45,6 +53,21 @@ public class CashPackageService {
     
     public List<CashPackage> listLOAN(){
         return cashPackageRepository.findByPackageType(CashPackageType.LOAN);
+    }
+
+    public void expirePKG(CashPackage cpkg){
+        if(cpkg.getPackageType() == CashPackageType.LOAN){
+            Period period = Period.between(cpkg.getExpiryDate(), LocalDate.now());
+            accountService.deductBalance(cpkg.getAccount(),cpkg.getAmount()*Math.pow((1+cpkg.getInterest()), period.getMonths()+period.getYears()*12));
+        }else{
+            cashPackageRepository.delete(cpkg);
+        }
+    }
+
+    public CashPackage updatePKG(CashPackage cashPackage){
+        cashPackage.setPassed(cashPackage.getPassed()+1);
+        cashPackageRepository.save(cashPackage);
+        return cashPackage;
     }
     
 }
