@@ -96,4 +96,18 @@ public class AccountService {
         accountRepository.save(account);
         return account;
     }
+
+    public Account addBalance(Account account, Double balance){
+        account.setBalance(account.getBalance()+balance);
+        accountRepository.save(account);
+        return account;
+    }
+
+    public Account deductBalance(Account account, Double balance){
+        if (account.getBalance() < balance)
+            throw new IllegalArgumentException("Insufficient Balance");
+        account.setBalance(account.getBalance()-balance);
+        accountRepository.save(account);
+        return account;
+    }
 }
