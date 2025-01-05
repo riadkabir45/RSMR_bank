@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}" ></head>
+<body class="d-flex flex-column">
+    <nav th:replace="~{base :: nav}" ></nav>
+    
+    <div class="container py-5">
+        <div class="d-flex flex-column gap-4 align-items-center">
+            <button onclick="copyToClipboard(this)" th:each="card : ${cards}" th:with="cardType=*{card.getCardType()}" type="submit" th:class="| ${cardType == 'Debit'?'bg-primary':cardType == 'Credit'?'bg-warning':'bg-secondary'} card text-white shadow position-relative|" style="width: 22rem; border-radius: 15px;">
+                <div class="position-absolute top-0 end-0 p-2 text-uppercase fw-bold" th:text="*{card.getCardType()}">Credit</div>
+                <div class="card-body">
+                    <div class="bg-light mb-3" style="width: 60px; height: 40px; border-radius: 5px;"></div>
+                    <h5 class="card-title fs-4 text-center" th:text="*{card.getCardId().substring(0, 4)} + ' ' + *{card.getCardId().substring(4, 8)} + ' ' + *{card.getCardId().substring(8, 12)} + ' ' + *{card.getCardId().substring(12, 16)}">1234 5678 9012 3456</h5>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <small>Card Holder</small>
+                            <div th:text="${user.getUsername()}">John Doe</div>
+                        </div>
+                        <div>
+                            <small>Expires</small>
+                            <div th:text="${card.getExpiryDate()}">12/25</div>
+                        </div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div> 
+    <!-- Request Card Button -->
+    <a class="btn btn-primary position-fixed bottom-0 end-0 m-4 mb-3" href="/cardRequest" style="z-index: 1050;">Request Card</a>
+
+    
+    <footer th:replace="~{base :: footer}" ></footer>
+
+    <script>
+        function copyToClipboard(button) {
+
+        const cardNumberElement = button.querySelector('.card-title'); 
+        const cardNumber = cardNumberElement.textContent.replace(' ', '').replace(' ', '').replace(' ', ''); 
+        console.log(cardNumber);
+        
+
+        const tempInput = document.createElement("textarea");
+        tempInput.value = cardNumber;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        document.execCommand("copy");
+
+        document.body.removeChild(tempInput);
+
+        //alert("Card number copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>

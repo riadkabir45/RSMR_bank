@@ -1,22 +1,24 @@
 package com.bracu.rsmr;
 
 import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.bracu.rsmr.Account.AccountService;
+import com.bracu.rsmr.Card.CardService;
+import com.bracu.rsmr.CashPackage.CashPackage;
+import com.bracu.rsmr.CashPackage.CashPackageService;
 import com.bracu.rsmr.Chat.ChatService;
 import com.bracu.rsmr.ChatLink.ChatLink;
 import com.bracu.rsmr.ChatLink.ChatLinkService;
 import com.bracu.rsmr.User.User;
-import com.bracu.rsmr.User.UserRepository;
 import com.bracu.rsmr.User.UserService;
 
 @SpringBootApplication
+@EnableScheduling
 public class RsmrApplication implements CommandLineRunner {
 
     @Autowired
@@ -31,12 +33,19 @@ public class RsmrApplication implements CommandLineRunner {
     @Autowired
     private ChatService chatService;
 
+    @Autowired
+    private CardService cardService;
+
+    @Autowired
+    private CashPackageService cashPackageService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(RsmrApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+        System.out.println("========================================================");
 		User rifat = userService.createUser(new User("Rifat", "pixel", "rifatmahamd1@gmail.com", Arrays.asList("Moderator")));
         User sishir = userService.createUser(new User("Sishir", "Xpress", "rifatmahamd1@gmail.com", Arrays.asList("Moderator")));
         User nabi = userService.createUser(new User("Nabi", "Crypto", "rifatmahamd1@gmail.com"));
@@ -76,6 +85,19 @@ public class RsmrApplication implements CommandLineRunner {
         chatService.sendText(aritra.getId(), lSajid.getId(), "Hello sir, How can I help.");
 
         chatService.getChat(lJahan.getId());
+
+        // Card test
+        cardService.approveCard(cardService.requestCard(jahan.getAccount(), "Credit").getId());
+        cardService.approveCard(cardService.requestCard(jahan.getAccount(), "Debit").getId());
+
+        // CashPackage Test
+        CashPackage jahanPKG =  cashPackageService.createDPS(jahan.getAccount(), 24, 1000L);
+        //cashPackageService.createLoan(jahan.getAccount(), 12, 1000L);
+        //cashPackageService.createEMI(jahan.getAccount(), 6, 1000L);
+
+        //accountService.updateDPS();
+        //accountService.updateDPS();
+        System.out.println("========================================================");
 	}
 
 }

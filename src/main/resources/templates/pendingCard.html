@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{base :: head}" ></head>
+<body>
+    <nav th:replace="~{base :: nav}" ></nav>
+    
+    <div class="container mt-5">
+        <h2>Pending Requests</h2>
+        <div class="table-container"> 
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Card Type</th>
+                        <th>Username</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody th:each="link: ${links}">
+                    <tr>
+                        <td th:text="${link.getCardId()}"></td>
+                        <td th:text="${link.getCardType()}"></td>
+                        <td th:text="${link.getOwner().getUser().getUsername()}"></td>
+                        <td>
+                            <form id="form" th:action="@{/api/cards/approve/{id}(id=${link.getId()})}" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" th:value="${link.getId()}" name="id" id="username" placeholder="Enter Username" required>
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <footer th:replace="~{base :: footer}" ></footer>
+
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (event) => {
+
+                const url = form.getAttribute('action'); 
+
+                callAndAct(url,event,reload);
+                
+                event.preventDefault(); 
+            });
+        });
+    </script>
+
+</body>
+</html>
