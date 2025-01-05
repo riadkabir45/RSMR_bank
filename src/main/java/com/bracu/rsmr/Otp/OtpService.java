@@ -16,8 +16,12 @@ public class OtpService {
     private final Random random = new Random();
 
     public String generateOtp() {
-        // Generate a 6-digit OTP
-        return String.format("%06d", random.nextInt(1000000));
+        StringBuilder otp = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            int digit = random.nextInt(10); 
+            otp.append(digit); 
+        }
+        return otp.toString();
     }
 
     public void sendOtp(String email, String otp) {
